@@ -1,0 +1,50 @@
+Nom de groupe: Kappa
+Sujet: Diffuse une blibliothèque de films
+
+Geoffrey BRAIRE
+Rôle: Test writing
+Stack technique (techno utilisé): Mockito, JUnit
+
+Jordan DAHBI
+Rôle: Conception architecture; Gestion évènements
+Stack technique (techno utilisé): Javascript(AJAX), Hibernate
+
+
+
+Willy UNG
+Rôle: Front, Schéma relationnel 
+Stack technique (techno utilisé): HTML, CSS
+
+Architecture:
+- MovieEntity
+- MovieService
+- MovieController
+
+- ActorEntity
+- ActorService
+- ActorController
+
+- MovieDisplayerEntity
+- MovieDisplayerService
+- MovieDisplayerController
+
+API: 
+o Films/séries (épisode - saison)
+	- Accès
+    - Ajout
+	- Modification
+	- Suppression
+	
+o Acteurs
+	- Accès
+    - Ajout
+	- Modification
+	- Suppression
+
+o Diffusions
+	- Accès
+    - Ajout
+	- Modification
+	- Suppression
+
+Découvertes: fluentlenium
