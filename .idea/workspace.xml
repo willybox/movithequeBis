@@ -2,20 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1903b97b-3aac-4e4b-8d1d-37c66fe22b60" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/entities/ActeurEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/entities/FilmEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/entities/ParticipationFilmEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/entities/ParticipationSaisonEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/entities/SaisonEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/ActorServiceTest.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/entities/ActorEntity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/entities/MovieEntity.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/exceptions/ParticipationDejaExistante.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/MoviethequeApplicationTests.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/services/ActorService.java" afterPath="$PROJECT_DIR$/src/main/java/services/ParticipationFilmService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/com/ActorServiceTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/ParticipationFilmTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Movietheque.iml" afterPath="$PROJECT_DIR$/Movietheque.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/entities/EpisodeEntity.java" afterPath="$PROJECT_DIR$/src/main/java/entities/EpisodeEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/entities/SerieEntity.java" afterPath="$PROJECT_DIR$/src/main/java/entities/SerieEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/services/ActorService.java" afterPath="$PROJECT_DIR$/src/main/java/services/ActorService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/entities/ParticipationFilmEntity.java" afterPath="$PROJECT_DIR$/src/main/java/entities/ParticipationFilmEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/entities/ParticipationSaisonEntity.java" afterPath="$PROJECT_DIR$/src/main/java/entities/ParticipationSaisonEntity.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -32,7 +25,7 @@
       <file leaf-file-name="ActeurEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/entities/ActeurEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
+            <state relative-caret-position="93">
               <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -44,7 +37,7 @@
       <file leaf-file-name="FilmEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/entities/FilmEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
+            <state relative-caret-position="252">
               <caret line="21" column="4" lean-forward="false" selection-start-line="21" selection-start-column="4" selection-end-line="22" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -56,8 +49,8 @@
       <file leaf-file-name="ParticipationFilmEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/entities/ParticipationFilmEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="192">
+              <caret line="18" column="10" lean-forward="false" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -68,8 +61,8 @@
       <file leaf-file-name="ParticipationSaisonEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/entities/ParticipationSaisonEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="20" column="30" lean-forward="false" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+            <state relative-caret-position="189">
+              <caret line="18" column="10" lean-forward="false" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,16 +82,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MoviethequeApplicationTests.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/MoviethequeApplicationTests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SerieEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/entities/SerieEntity.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -111,23 +94,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActorService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/services/ActorService.java">
+      <file leaf-file-name="ParticipationFilmService.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/services/ParticipationFilmService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="462">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#309#310#0" expanded="true" />
+                <element signature="e#372#373#0" expanded="true" />
+                <element signature="e#420#421#0" expanded="true" />
+                <element signature="e#481#482#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParticipationDejaExistante.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/exceptions/ParticipationDejaExistante.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActorServiceTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/ActorServiceTest.java">
+      <file leaf-file-name="ParticipationFilmTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/ParticipationFilmTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="27" column="5" lean-forward="false" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+            <state relative-caret-position="-313">
+              <caret line="52" column="54" lean-forward="false" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#568#569#0" expanded="true" />
+                <element signature="e#641#642#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -177,8 +178,14 @@
         <option value="$PROJECT_DIR$/src/main/java/entities/EpisodeEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/entities/FilmEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/entities/SaisonEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/services/ParticipationService.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/ParticipationServiceTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/services/ParticipationDejaExistante.java" />
         <option value="$PROJECT_DIR$/src/main/java/entities/ParticipationFilmEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/entities/ParticipationSaisonEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/services/ParticipationFilmService.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/ParticipationFilmTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/exceptions/ParticipationDejaExistante.java" />
       </list>
     </option>
   </component>
@@ -322,32 +329,6 @@
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entities" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="movietheque" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Movietheque" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -362,6 +343,11 @@
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="" />
   </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="services" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -374,8 +360,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ActorServiceTest">
-    <configuration default="false" name="ActorServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration default="false" name="ParticipationFilmTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="com.*" />
@@ -386,7 +372,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com" />
-      <option name="MAIN_CLASS_NAME" value="com.ActorServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="com.ParticipationFilmTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -401,7 +387,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="ActorServiceTest.get_number_of_movie_of_new_actor_should_be_0" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="ParticipationFilmTest.le_nombre_de_film_apres_l_ajout_d_un_nouveau_film_a_un_acteur_doit_etre_de_1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="com.*" />
@@ -412,8 +398,8 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com" />
-      <option name="MAIN_CLASS_NAME" value="com.ActorServiceTest" />
-      <option name="METHOD_NAME" value="get_number_of_movie_of_new_actor_should_be_0" />
+      <option name="MAIN_CLASS_NAME" value="com.ParticipationFilmTest" />
+      <option name="METHOD_NAME" value="le_nombre_de_film_apres_l_ajout_d_un_nouveau_film_a_un_acteur_doit_etre_de_1" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -427,7 +413,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="ActorServiceTest.add_movie_should_add_movie_to_the_list" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="ParticipationFilmTest.ajouter_deux_fois_le_meme_film_doit_etre_impossible" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="com.*" />
@@ -438,8 +424,60 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com" />
-      <option name="MAIN_CLASS_NAME" value="com.ActorServiceTest" />
-      <option name="METHOD_NAME" value="add_movie_should_add_movie_to_the_list" />
+      <option name="MAIN_CLASS_NAME" value="com.ParticipationFilmTest" />
+      <option name="METHOD_NAME" value="ajouter_deux_fois_le_meme_film_doit_etre_impossible" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="ParticipationFilmTest.le_nombre_de_film_d_un_nouvel_acteur_doit_etre_de_0" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="Movietheque" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com" />
+      <option name="MAIN_CLASS_NAME" value="com.ParticipationFilmTest" />
+      <option name="METHOD_NAME" value="le_nombre_de_film_d_un_nouvel_acteur_doit_etre_de_0" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="ParticipationFilmTest.ajouter_participation_sans_importance_doit_creer_une_participation_avec_importance_inconnue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="Movietheque" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com" />
+      <option name="MAIN_CLASS_NAME" value="com.ParticipationFilmTest" />
+      <option name="METHOD_NAME" value="ajouter_participation_sans_importance_doit_creer_une_participation_avec_importance_inconnue" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -840,17 +878,21 @@
       <envs />
       <method />
     </configuration>
-    <list size="4">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Spring Boot.MoviethequeApplication" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.ActorServiceTest" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.ActorServiceTest.get_number_of_movie_of_new_actor_should_be_0" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.ActorServiceTest.add_movie_should_add_movie_to_the_list" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.ParticipationFilmTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.ParticipationFilmTest.le_nombre_de_film_apres_l_ajout_d_un_nouveau_film_a_un_acteur_doit_etre_de_1" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.ParticipationFilmTest.ajouter_deux_fois_le_meme_film_doit_etre_impossible" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.ParticipationFilmTest.le_nombre_de_film_d_un_nouvel_acteur_doit_etre_de_0" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.ParticipationFilmTest.ajouter_participation_sans_importance_doit_creer_une_participation_avec_importance_inconnue" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.ActorServiceTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.ActorServiceTest.add_movie_should_add_movie_to_the_list" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.ActorServiceTest.get_number_of_movie_of_new_actor_should_be_0" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.ParticipationFilmTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.ParticipationFilmTest.ajouter_participation_sans_importance_doit_creer_une_participation_avec_importance_inconnue" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.ParticipationFilmTest.le_nombre_de_film_d_un_nouvel_acteur_doit_etre_de_0" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.ParticipationFilmTest.ajouter_deux_fois_le_meme_film_doit_etre_impossible" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.ParticipationFilmTest.le_nombre_de_film_apres_l_ajout_d_un_nouveau_film_a_un_acteur_doit_etre_de_1" />
       </list>
     </recent_temporary>
   </component>
@@ -867,44 +909,44 @@
       <workItem from="1488549751712" duration="1560000" />
       <workItem from="1490193653237" duration="542000" />
       <workItem from="1490203936589" duration="6334000" />
-      <workItem from="1490271733650" duration="1772000" />
+      <workItem from="1490271733650" duration="5938000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ActorServiceTest - 2017.03.22 at 19h 17m 10s.xml">
-      <configuration name="ActorServiceTest" configurationId="JUnit" />
+    <history-entry file="ParticipationFilmTest - 2017.03.23 at 14h 29m 44s.xml">
+      <configuration name="ParticipationFilmTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ActorServiceTest - 2017.03.22 at 19h 26m 06s.xml">
-      <configuration name="ActorServiceTest" configurationId="JUnit" />
+    <history-entry file="ParticipationFilmTest - 2017.03.23 at 14h 42m 26s.xml">
+      <configuration name="ParticipationFilmTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ActorServiceTest - 2017.03.22 at 19h 30m 12s.xml">
-      <configuration name="ActorServiceTest" configurationId="JUnit" />
+    <history-entry file="ParticipationFilmTest - 2017.03.23 at 14h 58m 32s.xml">
+      <configuration name="ParticipationFilmTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ActorServiceTest - 2017.03.22 at 19h 35m 47s.xml">
-      <configuration name="ActorServiceTest" configurationId="JUnit" />
+    <history-entry file="ParticipationFilmTest_ajouter_deux_fois_le_meme_film_doit_etre_impossible - 2017.03.23 at 14h 29m 55s.xml">
+      <configuration name="ParticipationFilmTest.ajouter_deux_fois_le_meme_film_doit_etre_impossible" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ActorServiceTest_add_movie_should_add_movie_to_the_list - 2017.03.22 at 19h 34m 36s.xml">
-      <configuration name="ActorServiceTest.add_movie_should_add_movie_to_the_list" configurationId="JUnit" />
+    <history-entry file="ParticipationFilmTest_ajouter_deux_fois_le_meme_film_doit_etre_impossible - 2017.03.23 at 14h 30m 05s.xml">
+      <configuration name="ParticipationFilmTest.ajouter_deux_fois_le_meme_film_doit_etre_impossible" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ActorServiceTest_add_movie_should_add_movie_to_the_list - 2017.03.22 at 19h 35m 27s.xml">
-      <configuration name="ActorServiceTest.add_movie_should_add_movie_to_the_list" configurationId="JUnit" />
+    <history-entry file="ParticipationFilmTest_ajouter_participation_sans_importance_doit_creer_une_participation_avec_importance_inconnue - 2017.03.23 at 14h 58m 13s.xml">
+      <configuration name="ParticipationFilmTest.ajouter_participation_sans_importance_doit_creer_une_participation_avec_importance_inconnue" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ActorServiceTest_add_movie_should_add_movie_to_the_list - 2017.03.22 at 19h 35m 38s.xml">
-      <configuration name="ActorServiceTest.add_movie_should_add_movie_to_the_list" configurationId="JUnit" />
+    <history-entry file="ParticipationFilmTest_ajouter_participation_sans_importance_doit_creer_une_participation_avec_importance_inconnue - 2017.03.23 at 14h 58m 24s.xml">
+      <configuration name="ParticipationFilmTest.ajouter_participation_sans_importance_doit_creer_une_participation_avec_importance_inconnue" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ActorServiceTest_get_number_of_movie_of_new_actor_should_be_0 - 2017.03.22 at 19h 26m 45s.xml">
-      <configuration name="ActorServiceTest.get_number_of_movie_of_new_actor_should_be_0" configurationId="JUnit" />
+    <history-entry file="ParticipationFilmTest_le_nombre_de_film_apres_l_ajout_d_un_nouveau_film_a_un_acteur_doit_etre_de_1 - 2017.03.23 at 14h 19m 57s.xml">
+      <configuration name="ParticipationFilmTest.le_nombre_de_film_apres_l_ajout_d_un_nouveau_film_a_un_acteur_doit_etre_de_1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ActorServiceTest_get_number_of_movie_of_new_actor_should_be_0 - 2017.03.22 at 19h 26m 47s.xml">
-      <configuration name="ActorServiceTest.get_number_of_movie_of_new_actor_should_be_0" configurationId="JUnit" />
+    <history-entry file="ParticipationFilmTest_le_nombre_de_film_apres_l_ajout_d_un_nouveau_film_a_un_acteur_doit_etre_de_1 - 2017.03.23 at 14h 20m 04s.xml">
+      <configuration name="ParticipationFilmTest.le_nombre_de_film_apres_l_ajout_d_un_nouveau_film_a_un_acteur_doit_etre_de_1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ActorServiceTest_get_number_of_movie_of_new_actor_should_be_0 - 2017.03.22 at 19h 30m 32s.xml">
-      <configuration name="ActorServiceTest.get_number_of_movie_of_new_actor_should_be_0" configurationId="JUnit" />
+    <history-entry file="ParticipationFilmTest_le_nombre_de_film_d_un_nouvel_acteur_doit_etre_de_0 - 2017.03.23 at 14h 42m 23s.xml">
+      <configuration name="ParticipationFilmTest.le_nombre_de_film_d_un_nouvel_acteur_doit_etre_de_0" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10309000" />
+    <option name="totallyTimeSpent" value="14475000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1924" height="1048" extended-state="0" />
@@ -923,11 +965,12 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run Dashboard" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282353" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -940,7 +983,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -986,7 +1028,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1063,12 +1105,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/ActorServiceTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/ParticipationFilmTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#568#569#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1083,11 +1127,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/services/ActorService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/services/ParticipationFilmService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#309#310#0" expanded="true" />
+            <element signature="e#372#373#0" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+            <element signature="e#481#482#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1119,11 +1169,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/services/ActorService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/services/ParticipationFilmService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#309#310#0" expanded="true" />
+            <element signature="e#372#373#0" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+            <element signature="e#481#482#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1175,11 +1231,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/services/ActorService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/services/ParticipationFilmService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#309#310#0" expanded="true" />
+            <element signature="e#372#373#0" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+            <element signature="e#481#482#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1212,14 +1274,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/MoviethequeApplicationTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1228,40 +1282,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/ActorServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="27" column="5" lean-forward="false" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/entities/ActeurEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/entities/EpisodeEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="24" column="4" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="25" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/entities/SaisonEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="44" lean-forward="false" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1278,20 +1302,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/entities/FilmEntity.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/MoviethequeApplicationTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="21" column="4" lean-forward="false" selection-start-line="21" selection-start-column="4" selection-end-line="22" selection-end-column="24" />
+        <state relative-caret-position="126">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/entities/SaisonEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="44" lean-forward="false" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/entities/ParticipationSaisonEntity.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/entities/ActeurEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="20" column="30" lean-forward="false" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+        <state relative-caret-position="93">
+          <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/entities/FilmEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="21" column="4" lean-forward="false" selection-start-line="21" selection-start-column="4" selection-end-line="22" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1300,19 +1342,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/entities/ParticipationFilmEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="192">
+          <caret line="18" column="10" lean-forward="false" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/services/ActorService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/entities/ParticipationSaisonEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="18" column="10" lean-forward="false" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/exceptions/ParticipationDejaExistante.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/ParticipationFilmTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-313">
+          <caret line="52" column="54" lean-forward="false" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#568#569#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/services/ParticipationFilmService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#309#310#0" expanded="true" />
+            <element signature="e#372#373#0" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+            <element signature="e#481#482#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
