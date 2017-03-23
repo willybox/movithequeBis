@@ -13,6 +13,7 @@ target/
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
+.idea/
 
 ### NetBeans ###
 nbproject/private/
