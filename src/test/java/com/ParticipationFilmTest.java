@@ -4,6 +4,7 @@ package com;
 import entities.ActeurEntity;
 import entities.FilmEntity;
 import entities.ParticipationFilmEntity;
+import enumerations.ImportanceEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ public class ParticipationFilmTest {
 
         ParticipationFilmEntity participationFilmEntity = participationFilmService.ajouterParticipationFilm(acteur,film);
 
-        assertThat(participationFilmEntity.getParticipation()).isEqualTo(ParticipationFilmEntity.PARTICIPATION_INCONNUE);
+        assertThat(participationFilmEntity.getImportance()).isEqualTo(ImportanceEnum.IMPORTANCE_INCONNUE);
     }
 
 

@@ -1,6 +1,8 @@
 package entities;
 
+import enumerations.ImportanceEnum;
 import lombok.*;
+import org.springframework.context.annotation.Import;
 
 import javax.persistence.*;
 
@@ -13,13 +15,8 @@ import javax.persistence.*;
 @Table(name="participation_film")
 public class ParticipationFilmEntity {
 
-    public final static int PARTICIPATION_INCONNUE = 0;
-    public final static int PARTICIPATION_PRINCIPALE = 1;
-    public final static int PARTICIPATION_SECONDAIRE = 2;
-    public final static int PARTICIPATION_TERTIAIRE = 3;
-
-    @Column(name="participation")
-    private int participation;
+    @Column(name="importance")
+    private ImportanceEnum importance;
 
     @Id
     @ManyToOne
