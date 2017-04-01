@@ -3,8 +3,17 @@ package controllers;
 import entities.ActeurEntity;
 import entities.ActeurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import services.ActeurService;
+
+import javax.validation.Valid;
+
+import java.util.List;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 
 @RestController
@@ -12,14 +21,20 @@ import services.ActeurService;
 public class ActeurApiController {
 
     @Autowired
-    private ActeurRepository acteurRepository;
+    private ActeurService acteurService;
 
+    @PostMapping(path="/add")
+    public ResponseEntity<ActeurEntity> addNouvelActeur(@RequestBody @Valid ActeurEntity acteurEntity, BindingResult bindingResult) {
+        if(bindingResult.hasErrors())
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
+        acteurService.createActeur(acteurEntity);
+        return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
+    }
 
-    @GetMapping(path="/add")
-    public @ResponseBody String addNewUser (@RequestParam String nom , @RequestParam String prenom) {
-        ActeurEntity acteur = ActeurEntity.builder().nom(nom).prenom(prenom).build();
-        acteurRepository.save(acteur);
-        return "Saved";
+    @GetMapping(path="/")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody List<ActeurEntity> getActeurs() {
+        return acteurService.getActeurs();
     }
 }

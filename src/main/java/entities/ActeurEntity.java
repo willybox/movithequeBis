@@ -1,7 +1,10 @@
 package entities;
 
 import lombok.*;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +24,13 @@ public class ActeurEntity {
     private Long id;
 
     @Column(name="acteur_nom")
+    @NotNull
+    @NotBlank
     private String nom;
 
     @Column(name="acteur_prenom")
+    @NotNull
+    @NotBlank
     private String prenom;
 
     @Column(name="acteur_datedenaissance")
