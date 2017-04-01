@@ -14,8 +14,8 @@ public class ActeurService {
     public ActeurRepository acteurRepository;
 
     @Autowired
-    public ActeurService(ActeurRepository accountRepository){
-        this.acteurRepository=accountRepository;
+    public ActeurService(ActeurRepository acteurRepository){
+        this.acteurRepository=acteurRepository;
     }
 
     @Transactional
@@ -27,5 +27,18 @@ public class ActeurService {
     @Transactional(readOnly = true)
     public List<ActeurEntity> getActeurs() {
         return acteurRepository.findAll();
+    }
+
+    @Transactional
+    public void deleteActeur(Long acteurId) {
+        acteurRepository.delete(acteurId);
+    }
+
+    public ActeurEntity modifierActeur(Long acteurId, ActeurEntity acteurEntity) {
+        ActeurEntity update = acteurRepository.findOne(acteurId);
+        update.setNom(acteurEntity.getNom());
+        update.setPrenom(acteurEntity.getPrenom());
+        acteurRepository.save(update);
+        return update;
     }
 }

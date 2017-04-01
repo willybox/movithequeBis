@@ -24,7 +24,7 @@ public class ActeurApiController {
     private ActeurService acteurService;
 
     @PostMapping(path="/add")
-    public ResponseEntity<ActeurEntity> addNouvelActeur(@RequestBody @Valid ActeurEntity acteurEntity, BindingResult bindingResult) {
+    public ResponseEntity<ActeurEntity> addNouvelActeur(@Valid ActeurEntity acteurEntity, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
@@ -36,5 +36,18 @@ public class ActeurApiController {
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody List<ActeurEntity> getActeurs() {
         return acteurService.getActeurs();
+    }
+
+    @PostMapping(path="/delete/{acteur_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteActeur(@PathVariable("acteur_id") Long acteurId) {
+        acteurService.deleteActeur(acteurId);
+    }
+
+    @PutMapping(path="/update/{acteur_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ActeurEntity update(@PathVariable("acteur_id") Long acteurId, @Valid ActeurEntity acteurEntity, BindingResult bindingResult) {
+        acteurService.modifierActeur(acteurId, acteurEntity);
+        return acteurEntity;
     }
 }

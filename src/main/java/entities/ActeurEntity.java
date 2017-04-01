@@ -46,4 +46,6 @@ public class ActeurEntity {
         participationSaisonList = new ArrayList<ParticipationSaisonEntity>();
         participationFilmList = new ArrayList<ParticipationFilmEntity>();
     }
+
+
 }
