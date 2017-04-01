@@ -68,7 +68,7 @@ public class ParticipationFilmTest {
     }
 
     @Test(expected= ParticipationDejaExistante.class)
-    public void ajouter_deux_fois_la_meme_participation_doit_renvoyer_une_exception(){
+    public void ajouter_deux_fois_la_meme_participation_doit_renvoyer_une_exception_participation_deja_existante(){
         acteur = new ActeurEntity();
         film = new FilmEntity();
 

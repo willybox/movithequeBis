@@ -29,10 +29,10 @@ public class ActeurEntity {
     @Column(name="acteur_datedenaissance")
     private Date dateDeNaissance;
 
-    @OneToMany(mappedBy = "participation_saison")
+    @OneToMany(mappedBy = "acteur")
     private List<ParticipationSaisonEntity> participationSaisonList;
 
-    @OneToMany(mappedBy = "participation_film")
+    @OneToMany(mappedBy = "acteur")
     private List<ParticipationFilmEntity> participationFilmList;
 
     public ActeurEntity(){

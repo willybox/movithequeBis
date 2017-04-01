@@ -4,6 +4,7 @@ import enumerations.ImportanceEnum;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -12,15 +13,19 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="participation_saison")
-public class ParticipationSaisonEntity {
-
-    @Column(name="importance")
+public class ParticipationSaisonEntity implements Serializable{
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue
+    @Column(name="saison_id")
+    private Long id;
+    @Enumerated(EnumType.STRING)
     private ImportanceEnum importance;
 
     @Id
     @ManyToOne
     @JoinColumn(name="acteur_id")
-    private ActeurEntity actor;
+    private ActeurEntity acteur;
 
     @Id
     @ManyToOne

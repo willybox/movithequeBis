@@ -22,7 +22,7 @@ public class FilmEntity {
     @Column(name="movie_name")
     private String name;
 
-    @OneToMany(mappedBy = "participation_film")
+    @OneToMany(mappedBy = "film")
     private List<ParticipationFilmEntity> participationFilmList;
 
     public FilmEntity(){

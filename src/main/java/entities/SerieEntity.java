@@ -21,6 +21,6 @@ public class SerieEntity {
     @Column(name="serie_name")
     private String name;
 
-    @OneToMany(mappedBy = "EpisodeEntity")
+    @OneToMany(mappedBy = "serie")
     private List<EpisodeEntity> episodeList;
 }

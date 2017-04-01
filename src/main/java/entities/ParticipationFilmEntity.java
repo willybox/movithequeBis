@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.context.annotation.Import;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -13,9 +14,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="participation_film")
-public class ParticipationFilmEntity {
+public class ParticipationFilmEntity implements Serializable{
 
-    @Column(name="importance")
+    private static final long serialVersionUID = 1L;
+
+    @Enumerated(EnumType.STRING)
     private ImportanceEnum importance;
 
     @Id
