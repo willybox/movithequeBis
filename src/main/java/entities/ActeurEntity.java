@@ -15,22 +15,21 @@ import java.util.List;
 @Entity
 @Builder
 @AllArgsConstructor
-@Table(name="acteur")
+@Table(name="acteur",uniqueConstraints={@UniqueConstraint(columnNames = {"acteur_nom" , "acteur_prenom"})})
 public class ActeurEntity {
-
     @Id
     @GeneratedValue
     @Column(name="acteur_id")
     private Long id;
 
     @Column(name="acteur_nom")
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Le nom ne peut être vide")
+    @NotBlank(message = "Le nom ne peut être vide")
     private String nom;
 
     @Column(name="acteur_prenom")
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Le prenom ne peut être vide")
+    @NotBlank(message = "Le prenom ne peut être vide")
     private String prenom;
 
     @Column(name="acteur_datedenaissance")

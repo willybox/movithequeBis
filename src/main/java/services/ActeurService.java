@@ -2,7 +2,10 @@ package services;
 
 import entities.ActeurEntity;
 import entities.ActeurRepository;
+import exceptions.ActeurDejaExistant;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +23,7 @@ public class ActeurService {
 
     @Transactional
     public ActeurEntity createActeur(ActeurEntity acteurEntity) {
-        acteurRepository.save(acteurEntity);
+        save(acteurEntity);
         return acteurEntity;
     }
 
@@ -38,7 +41,23 @@ public class ActeurService {
         ActeurEntity update = acteurRepository.findOne(acteurId);
         update.setNom(acteurEntity.getNom());
         update.setPrenom(acteurEntity.getPrenom());
-        acteurRepository.save(update);
+        save(acteurEntity);
         return update;
+    }
+
+    private void save(ActeurEntity acteurEntity) {
+        try{
+            acteurRepository.save(acteurEntity);
+        }
+        catch(DataIntegrityViolationException ex){
+            Throwable t = ex.getCause();
+            while ((t != null) && !(t instanceof ConstraintViolationException)) {
+                t = t.getCause();
+            }
+            if(t instanceof ConstraintViolationException){
+                if( ex.getMostSpecificCause().getMessage().contains("Duplicate entry"))
+                    throw new ActeurDejaExistant();
+            }
+        }
     }
 }

@@ -2,10 +2,13 @@ package controllers;
 
 import entities.ActeurEntity;
 import entities.ActeurRepository;
+import exceptions.ActeurDejaExistant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import services.ActeurService;
 
@@ -14,6 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.ResponseEntity.status;
 
 
 @RestController
@@ -24,11 +28,13 @@ public class ActeurApiController {
     private ActeurService acteurService;
 
     @PostMapping(path="/add")
-    public ResponseEntity<ActeurEntity> addNouvelActeur(@Valid ActeurEntity acteurEntity, BindingResult bindingResult) {
-        if(bindingResult.hasErrors())
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-
+    @ExceptionHandler({ ActeurDejaExistant.class })
+    public ResponseEntity addNouvelActeur(@Valid ActeurEntity acteurEntity, Errors errors) {
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
+        }
         acteurService.createActeur(acteurEntity);
+
         return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
     }
 
@@ -45,9 +51,12 @@ public class ActeurApiController {
     }
 
     @PutMapping(path="/update/{acteur_id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ActeurEntity update(@PathVariable("acteur_id") Long acteurId, @Valid ActeurEntity acteurEntity, BindingResult bindingResult) {
+    public ResponseEntity updateActeur(@PathVariable("acteur_id") Long acteurId, @Valid ActeurEntity acteurEntity, Errors errors) {
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
+        }
+
         acteurService.modifierActeur(acteurId, acteurEntity);
-        return acteurEntity;
+        return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.OK);
     }
 }
