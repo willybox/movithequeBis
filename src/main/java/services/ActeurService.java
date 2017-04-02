@@ -41,7 +41,7 @@ public class ActeurService {
         ActeurEntity update = acteurRepository.findOne(acteurId);
         update.setNom(acteurEntity.getNom());
         update.setPrenom(acteurEntity.getPrenom());
-        save(acteurEntity);
+        save(update);
         return update;
     }
 
