@@ -37,15 +37,21 @@
             <div class="modal-body">
                 <input type="number" id="id" name="id" class="hidden"/>
                 <div class="form-group required">
-                    <label for="nom" class="col-sm-3 control-label">Nom</label>
+                    <label for="nom" class="col-sm-4 control-label">Nom</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="nom" name="nom" required="true"/>
                     </div>
                 </div>
                 <div class="form-group required">
-                    <label for="prenom" class="col-sm-3 control-label">Prenom</label>
+                    <label for="prenom" class="col-sm-4 control-label">Prenom</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="prenom" name="prenom" required="true"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dateDeNaissance" class="col-sm-4 control-label">Date de naissance</label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" id="dateDeNaissance" name="dateDeNaissance"/>
                     </div>
                 </div>
             </div>
@@ -88,7 +94,7 @@
                 <th data-visible="false" data-sorted="true" data-sortable="true" data-type="number" data-direction="DESC" data-filterable="false">Id</th>
                 <th>Nom</th>
                 <th>Prenom</th>
-                <th>Age</th>
+                <th>Date de naissance</th>
             </tr>
             </thead>
             <tbody>
@@ -196,13 +202,14 @@
                     col1: $editor.find('#id').val(),
                     col2: $editor.find('#nom').val(),
                     col3: $editor.find('#prenom').val(),
+                    col4: $editor.find('#dateDeNaissance').val(),
                 };
 
             if (row instanceof FooTable.Row){
                 $.ajax({
                     url: "http://localhost:8080/api/acteur/update/"+values.col1,
                     method:"put",
-                    data: {nom:values.col2,prenom:values.col3},
+                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col4},
                     success : function(res, statut){
                         $modal.modal('hide');
                         row.val(values);
@@ -228,7 +235,7 @@
                     url: "http://localhost:8080/api/acteur/add",
                     method:"post",
                     dataType:'json',
-                    data: {nom:values.col2,prenom:values.col3},
+                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col4},
                     success : function(res){
                         values.col1=res.id;
                         ft.rows.add(values);
