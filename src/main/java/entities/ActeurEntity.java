@@ -1,5 +1,7 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -14,7 +16,7 @@ import java.util.List;
 @Setter
 @Entity
 @Builder
-@AllArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties=true)
 @Table(name="acteur",uniqueConstraints={@UniqueConstraint(columnNames = {"acteur_nom" , "acteur_prenom"})})
 public class ActeurEntity {
     @Id
@@ -38,7 +40,8 @@ public class ActeurEntity {
     @OneToMany(mappedBy = "acteur")
     private List<ParticipationSaisonEntity> participationSaisonList;
 
-    @OneToMany(mappedBy = "acteur")
+    @OneToMany(targetEntity = ParticipationFilmEntity.class, mappedBy = "acteur", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonProperty("filmsList")
     private List<ParticipationFilmEntity> participationFilmList;
 
     public ActeurEntity(){
@@ -48,3 +51,4 @@ public class ActeurEntity {
 
 
 }
+

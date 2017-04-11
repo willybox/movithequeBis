@@ -1,5 +1,6 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ public class FilmEntity {
     @Column(name="movie_name")
     private String name;
 
-    @OneToMany(mappedBy = "film")
+    @OneToMany(targetEntity = ParticipationFilmEntity.class,mappedBy = "film", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ParticipationFilmEntity> participationFilmList;
 
     public FilmEntity(){
