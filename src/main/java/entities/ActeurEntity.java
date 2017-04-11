@@ -2,10 +2,12 @@ package entities;
 
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import javax.validation.constraints.Pattern;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,11 @@ public class ActeurEntity {
     private String prenom;
 
     @Column(name="acteur_datedenaissance")
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date dateDeNaissance;
+
+    //@Column(name="acteur_nationalite")
+
 
     @OneToMany(mappedBy = "acteur")
     private List<ParticipationSaisonEntity> participationSaisonList;
