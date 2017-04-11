@@ -1,4 +1,4 @@
-package com;
+package services;
 
 
 import entities.ActeurEntity;
@@ -9,11 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import exceptions.ParticipationDejaExistante;
-import services.ParticipationFilmService;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-public class ParticipationFilmTest {
+public class ParticipationFilmServiceTest {
 
     @Autowired
     ParticipationFilmService participationFilmService;
