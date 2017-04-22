@@ -28,7 +28,6 @@ public class ActeurApiController {
     private ActeurService acteurService;
 
     @PostMapping(path="/add")
-    @ExceptionHandler({ ActeurDejaExistant.class })
     public ResponseEntity addNouvelActeur(@Valid ActeurEntity acteurEntity, Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
@@ -48,6 +47,11 @@ public class ActeurApiController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteActeur(@PathVariable("acteur_id") Long acteurId) {
         acteurService.deleteActeur(acteurId);
+    }
+
+    @GetMapping("/{acteur_id}")
+    public ActeurEntity getAccount(@PathVariable("acteur_id") Long acteurId){
+        return acteurService.getActeur(acteurId);
     }
 
     @PutMapping(path="/update/{acteur_id}")

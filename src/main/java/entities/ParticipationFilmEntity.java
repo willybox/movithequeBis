@@ -19,6 +19,7 @@ import java.io.Serializable;
 @AllArgsConstructor(suppressConstructorProperties=true)
 @Table(name="participation_film")
 @JsonSerialize(using = ParticipationSerializer.class)
+@IdClass(ParticipationFilmEntity.class)
 public class ParticipationFilmEntity implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -27,13 +28,32 @@ public class ParticipationFilmEntity implements Serializable{
     private ImportanceEnum importance;
 
     @Id
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name="acteur_id")
     private ActeurEntity acteur;
 
     @Id
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name="film_id")
     private FilmEntity film;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ParticipationFilmEntity that = (ParticipationFilmEntity) o;
+
+        if (importance != that.importance) return false;
+        if (acteur != null ? !acteur.equals(that.acteur) : that.acteur != null) return false;
+        return film != null ? film.equals(that.film) : that.film == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = importance != null ? importance.hashCode() : 0;
+        result = 31 * result + (acteur != null ? acteur.hashCode() : 0);
+        result = 31 * result + (film != null ? film.hashCode() : 0);
+        return result;
+    }
 }

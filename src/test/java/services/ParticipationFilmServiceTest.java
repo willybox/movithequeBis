@@ -22,7 +22,7 @@ public class ParticipationFilmServiceTest {
 
     @Before
     public void init(){
-        participationFilmService = new ParticipationFilmService();
+       // participationFilmService = new ParticipationFilmService();
     }
 
 

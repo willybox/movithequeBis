@@ -6,7 +6,6 @@ import exceptions.ActeurDejaExistant;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +14,12 @@ import java.util.List;
 @Service
 public class ActeurService {
     public ActeurRepository acteurRepository;
+    public ParticipationFilmService participationFilmService;
 
     @Autowired
-    public ActeurService(ActeurRepository acteurRepository){
+    public ActeurService(ActeurRepository acteurRepository, ParticipationFilmService participationFilmService){
         this.acteurRepository=acteurRepository;
+        this.participationFilmService=participationFilmService;
     }
 
     @Transactional
@@ -34,6 +35,7 @@ public class ActeurService {
 
     @Transactional
     public void deleteActeur(Long acteurId) {
+        participationFilmService.deleteParticipationFilm(acteurId);
         acteurRepository.delete(acteurId);
     }
 
@@ -41,6 +43,7 @@ public class ActeurService {
         ActeurEntity update = acteurRepository.findOne(acteurId);
         update.setNom(acteurEntity.getNom());
         update.setPrenom(acteurEntity.getPrenom());
+        update.setDateDeNaissance(acteurEntity.getDateDeNaissance());
         save(update);
         return update;
     }
@@ -59,5 +62,10 @@ public class ActeurService {
                     throw new ActeurDejaExistant();
             }
         }
+    }
+
+    @Transactional(readOnly = true)
+    public ActeurEntity getActeur(Long acteurId) {
+        return acteurRepository.findById(acteurId);
     }
 }

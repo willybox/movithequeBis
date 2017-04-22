@@ -3,12 +3,21 @@ package services;
 import entities.ActeurEntity;
 import entities.FilmEntity;
 import entities.ParticipationFilmEntity;
+import entities.ParticipationFilmRepository;
 import enumerations.ImportanceEnum;
 import exceptions.ParticipationDejaExistante;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ParticipationFilmService {
+
+    public ParticipationFilmRepository participationFilmRepository;
+
+    @Autowired
+    public ParticipationFilmService(ParticipationFilmRepository participationFilmRepository){
+        this.participationFilmRepository=participationFilmRepository;
+    }
 
     public int nombreFilm(ActeurEntity acteur) {
         return acteur.getParticipationFilmList().size();
@@ -37,7 +46,8 @@ public class ParticipationFilmService {
         return this.ajouterParticipationFilm(acteur,film, ImportanceEnum.IMPORTANCE_INCONNUE);
     }
 
-
-
+    public void deleteParticipationFilm(Long acteurId){
+        participationFilmRepository.deleteByActeur(acteurId);
+    }
 
 }

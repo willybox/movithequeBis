@@ -95,6 +95,7 @@
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Date de naissance</th>
+                <th data-visible="false" data-sortable="false" data-filterable="false"></th>
             </tr>
             </thead>
             <tbody>
@@ -102,7 +103,8 @@
                 <td th:text="${acteur.id}"></td>
                 <td th:text="${acteur.nom}"></td>
                 <td th:text="${acteur.prenom}"></td>
-                <td th:text="${acteur.dateDeNaissance}"></td>
+                <td th:text="${acteur.dateDeNaissance} ? ${#dates.format(acteur.dateDeNaissance,'dd MMMM yyyy')} : 'Pas de date de naissance'"></td>
+                <td th:text="${acteur.dateDeNaissance} ? ${#dates.format(acteur.dateDeNaissance,'yyyy-MM-dd')}"></td>
             </tr>
             </tbody>
             <tfoot>
@@ -123,6 +125,8 @@
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
+<script th:src="@{/js/moment.js}"></script>
+<script th:src="@{/js/moment-with-locales.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}" ></script>
 <script th:src="@{/js/footable.min.js}"></script>
 <script th:src="@{/js/toastr.js}"></script>
@@ -147,6 +151,10 @@
                 "alwaysShow": true,
                 "allowView": true,
                 "addText": "Ajouter un acteur",
+                viewRow: function(row){
+                    var values = row.val();
+                    window.location.href = "http://localhost:8080/api/acteur/"+values.col1;
+                },
                 addRow: function(){
                     $modal.removeData('row');
                     $editor[0].reset();
@@ -154,10 +162,12 @@
                     $modal.modal('show');
                 },
                 editRow: function(row){
+                    console.log(row.val());
                     var values = row.val();
                     $editor.find('#id').val(values.col1);
                     $editor.find('#nom').val(values.col2);
                     $editor.find('#prenom').val(values.col3);
+                    $editor.find('#dateDeNaissance').val(values.col5);
                     $modal.data('row', row);
                     $editorTitle.text('Editer acteur ' + values.col2+' '+values.col3);
                     $modal.modal('show');
@@ -197,19 +207,25 @@
             }/*]]>*/
 
             e.preventDefault();
+            if($editor.find('#dateDeNaissance').val()=="")
+                var stringDate = "Pas de date de naissance";
+            else
+                var stringDate = moment($editor.find('#dateDeNaissance').val()).locale("fr").format('LL');
             var row = $modal.data('row'),
                 values = {
                     col1: $editor.find('#id').val(),
                     col2: $editor.find('#nom').val(),
                     col3: $editor.find('#prenom').val(),
-                    col4: $editor.find('#dateDeNaissance').val(),
+                    col4: stringDate,
+                    col5: $editor.find('#dateDeNaissance').val(),
                 };
 
             if (row instanceof FooTable.Row){
+                console.log(values);
                 $.ajax({
                     url: "http://localhost:8080/api/acteur/update/"+values.col1,
                     method:"put",
-                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col4},
+                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col5},
                     success : function(res, statut){
                         $modal.modal('hide');
                         row.val(values);
@@ -235,7 +251,7 @@
                     url: "http://localhost:8080/api/acteur/add",
                     method:"post",
                     dataType:'json',
-                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col4},
+                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col5},
                     success : function(res){
                         values.col1=res.id;
                         ft.rows.add(values);

@@ -1,9 +1,8 @@
 package entities;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-/**
- * Created by Willy on 11/04/2017.
- */
+@Repository
 public interface FilmRepository extends JpaRepository<FilmEntity, Long> {
 }

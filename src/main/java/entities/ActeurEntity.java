@@ -3,10 +3,14 @@ package entities;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
@@ -37,7 +41,8 @@ public class ActeurEntity {
     private String prenom;
 
     @Column(name="acteur_datedenaissance")
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date dateDeNaissance;
 
     //@Column(name="acteur_nationalite")
@@ -46,7 +51,7 @@ public class ActeurEntity {
     @OneToMany(mappedBy = "acteur")
     private List<ParticipationSaisonEntity> participationSaisonList;
 
-    @OneToMany(targetEntity = ParticipationFilmEntity.class, mappedBy = "acteur", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = ParticipationFilmEntity.class, mappedBy = "acteur")
     @JsonProperty("filmsList")
     private List<ParticipationFilmEntity> participationFilmList;
 
