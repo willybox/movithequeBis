@@ -2,17 +2,15 @@ package entities;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import jsonserializer.ParticipationFilmActeurSerializer;
 import lombok.*;
-import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +40,13 @@ public class ActeurEntity {
 
     @Column(name="acteur_datedenaissance")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern="yyyy-MM-dd")
     private Date dateDeNaissance;
-
-    //@Column(name="acteur_nationalite")
-
 
     @OneToMany(mappedBy = "acteur")
     private List<ParticipationSaisonEntity> participationSaisonList;
 
     @OneToMany(targetEntity = ParticipationFilmEntity.class, mappedBy = "acteur")
+    @JsonSerialize(using= ParticipationFilmActeurSerializer.class)
     @JsonProperty("filmsList")
     private List<ParticipationFilmEntity> participationFilmList;
 

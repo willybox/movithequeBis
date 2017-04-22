@@ -1,7 +1,7 @@
 package services;
 
 import entities.ActeurEntity;
-import entities.ActeurRepository;
+import repositories.ActeurRepository;
 import exceptions.ActeurDejaExistant;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;

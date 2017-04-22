@@ -1,6 +1,6 @@
-package entities;
+package repositories;
 
-
+import entities.ActeurEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

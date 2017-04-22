@@ -1,7 +1,7 @@
 package services;
 
 import entities.ActeurEntity;
-import entities.ActeurRepository;
+import repositories.ActeurRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

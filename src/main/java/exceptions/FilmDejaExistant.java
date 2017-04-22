@@ -1,7 +1,8 @@
 package exceptions;
 
-/**
- * Created by Willy on 11/04/2017.
- */
-public class FilmDejaExistant extends Exception {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value = HttpStatus.CONFLICT,reason = "Le film existe déjà")
+public class FilmDejaExistant extends RuntimeException {
 }

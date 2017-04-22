@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>MovieTheque - Acteurs</title>
+    <title>MovieTheque - Films</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link th:href="@{/css/bootstrap.min.css}"  rel="stylesheet" media="screen"> </link>
     <link th:href="@{/css/starter-template.css}" rel="stylesheet" media="screen"> </link>
@@ -32,7 +32,7 @@
         <form class="modal-content form-horizontal" id="editor">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="editor-title">Ajouter acteur</h4>
+                <h4 class="modal-title" id="editor-title">Ajouter film</h4>
             </div>
             <div class="modal-body">
                 <input type="number" id="id" name="id" class="hidden"/>
@@ -42,16 +42,10 @@
                         <input type="text" class="form-control" id="nom" name="nom" required="true"/>
                     </div>
                 </div>
-                <div class="form-group required">
-                    <label for="prenom" class="col-sm-4 control-label">Prenom</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="prenom" name="prenom" required="true"/>
-                    </div>
-                </div>
                 <div class="form-group">
-                    <label for="dateDeNaissance" class="col-sm-4 control-label">Date de naissance</label>
+                    <label for="dateDeSortie" class="col-sm-4 control-label">Date de sortie</label>
                     <div class="col-sm-8">
-                        <input type="date" class="form-control" id="dateDeNaissance" name="dateDeNaissance"/>
+                        <input type="date" class="form-control" id="dateDeSortie" name="dateDeSortie"/>
                     </div>
                 </div>
             </div>
@@ -76,9 +70,9 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/films/">Films</a></li>
+                <li class="active"><a href="/films/">Films</a></li>
                 <li><a href="/series/">Séries</a></li>
-                <li class="active"><a href="/acteurs/">Acteurs</a></li>
+                <li><a href="/acteurs/">Acteurs</a></li>
                 <li><a href="/api/">API</a></li>
             </ul>
         </div><!--/.nav-collapse -->
@@ -93,18 +87,16 @@
             <tr>
                 <th data-visible="false" data-sorted="true" data-sortable="true" data-type="number" data-direction="DESC" data-filterable="false">Id</th>
                 <th>Nom</th>
-                <th>Prenom</th>
-                <th>Date de naissance</th>
+                <th>Date de Sortie</th>
                 <th data-visible="false" data-sortable="false" data-filterable="false"></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="acteur : ${acteursListe}">
-                <td th:text="${acteur.id}"></td>
-                <td th:text="${acteur.nom}"></td>
-                <td th:text="${acteur.prenom}"></td>
-                <td th:text="${acteur.dateDeNaissance} ? ${#dates.format(acteur.dateDeNaissance,'dd MMMM yyyy')} : 'Pas de date de naissance'"></td>
-                <td th:text="${acteur.dateDeNaissance} ? ${#dates.format(acteur.dateDeNaissance,'yyyy-MM-dd')}"></td>
+            <tr th:each="film : ${filmsListe}">
+                <td th:text="${film.id}"></td>
+                <td th:text="${film.nom}"></td>
+                <td th:text="${film.dateDeSortie} ? ${#dates.format(film.dateDeSortie,'dd MMMM yyyy')} : 'Pas de date de sortie'"></td>
+                <td th:text="${film.dateDeSortie} ? ${#dates.format(film.dateDeSortie,'yyyy-MM-dd')}"></td>
             </tr>
             </tbody>
             <tfoot>
@@ -117,7 +109,7 @@
         </table>
     </div>
 
-</div><!-- /.container -->
+</div>
 
 
 </body>
@@ -150,15 +142,15 @@
                 "enabled": true,
                 "alwaysShow": true,
                 "allowView": true,
-                "addText": "Ajouter un acteur",
+                "addText": "Ajouter un film",
                 viewRow: function(row){
                     var values = row.val();
-                    window.location.href = "http://localhost:8080/api/acteur/"+values.col1;
+                    window.location.href = "http://localhost:8080/api/film/"+values.col1;
                 },
                 addRow: function(){
                     $modal.removeData('row');
                     $editor[0].reset();
-                    $editorTitle.text('Ajouter un nouvel acteur');
+                    $editorTitle.text('Ajouter un nouveau film');
                     $modal.modal('show');
                 },
                 editRow: function(row){
@@ -166,19 +158,18 @@
                     var values = row.val();
                     $editor.find('#id').val(values.col1);
                     $editor.find('#nom').val(values.col2);
-                    $editor.find('#prenom').val(values.col3);
-                    $editor.find('#dateDeNaissance').val(values.col5);
+                    $editor.find('#dateDeSortie').val(values.col4);
                     $modal.data('row', row);
-                    $editorTitle.text('Editer acteur ' + values.col2+' '+values.col3);
+                    $editorTitle.text('Editer film ' + values.col2);
                     $modal.modal('show');
                 },
                 deleteRow: function(row){
                     var values = row.val();
                     $.ajax({
-                        url: "http://localhost:8080/api/acteur/delete/"+values.col1,
+                        url: "http://localhost:8080/api/film/delete/"+values.col1,
                         method:"post",
                         success : function(res, statut) {
-                            toastr.error("L'acteur a été supprimé");
+                            toastr.error("Le film a été supprimé");
                             row.delete();
                         },
                         error : function(resultat, statut, erreur){
@@ -207,29 +198,28 @@
             }/*]]>*/
 
             e.preventDefault();
-            if($editor.find('#dateDeNaissance').val()=="")
-                var stringDate = "Pas de date de naissance";
+            if($editor.find('#dateDeSortie').val()=="")
+                var stringDate = "Pas de date de sortie";
             else
-                var stringDate = moment($editor.find('#dateDeNaissance').val()).locale("fr").format('LL');
+                var stringDate = moment($editor.find('#dateDeSortie').val()).locale("fr").format('LL');
             var row = $modal.data('row'),
                 values = {
                     col1: $editor.find('#id').val(),
                     col2: $editor.find('#nom').val(),
-                    col3: $editor.find('#prenom').val(),
-                    col4: stringDate,
-                    col5: $editor.find('#dateDeNaissance').val(),
+                    col3: stringDate,
+                    col4: $editor.find('#dateDeSortie').val(),
                 };
 
             if (row instanceof FooTable.Row){
                 console.log(values);
                 $.ajax({
-                    url: "http://localhost:8080/api/acteur/update/"+values.col1,
+                    url: "http://localhost:8080/api/film/update/"+values.col1,
                     method:"put",
-                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col5},
+                    data: {nom:values.col2, dateDeSortie:values.col4},
                     success : function(res, statut){
                         $modal.modal('hide');
                         row.val(values);
-                        toastr.info("L'acteur a été modifié");
+                        toastr.info("Le film a été modifié");
                     },
                     error : function(resultat, statut, erreur){
                         var responseErrors = JSON.parse(resultat.responseText);
@@ -248,15 +238,15 @@
                 });
             } else {
                 $.ajax({
-                    url: "http://localhost:8080/api/acteur/add",
+                    url: "http://localhost:8080/api/film/add",
                     method:"post",
                     dataType:'json',
-                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col5},
+                    data: {nom:values.col2, dateDeSortie:values.col4},
                     success : function(res){
                         values.col1=res.id;
                         ft.rows.add(values);
                         $modal.modal('hide');
-                        toastr.info("L'acteur a été ajouté");
+                        toastr.info("Le film a été ajouté");
                     },
                     error : function(resultat){
                         var responseErrors = JSON.parse(resultat.responseText);

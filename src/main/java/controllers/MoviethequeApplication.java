@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EntityScan("entities")
-@EnableJpaRepositories("entities")
+@EnableJpaRepositories("repositories")
 @ComponentScan(basePackages = {"controllers","services"})
 public class MoviethequeApplication {
 

@@ -1,15 +1,17 @@
 package services;
 
 import entities.FilmEntity;
-import entities.FilmRepository;
+import repositories.FilmRepository;
 import exceptions.FilmDejaExistant;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class FilmService {
 
     public FilmRepository filmRepository;
@@ -20,7 +22,7 @@ public class FilmService {
     }
 
     @Transactional
-    public FilmEntity createFilm(FilmEntity filmEntity) throws FilmDejaExistant {
+    public FilmEntity createFilm(FilmEntity filmEntity) {
         save(filmEntity);
         return filmEntity;
     }
@@ -35,15 +37,15 @@ public class FilmService {
         filmRepository.delete(filmId);
     }
 
-    public FilmEntity modifierFilm(Long filmId, FilmEntity filmEntity) throws FilmDejaExistant {
+    public FilmEntity modifierFilm(Long filmId, FilmEntity filmEntity){
         FilmEntity update = filmRepository.findOne(filmId);
-        update.setName(filmEntity.getName());
-        update.setParticipationFilmList(filmEntity.getParticipationFilmList());
+        update.setNom(filmEntity.getNom());
+        update.setDateDeSortie(filmEntity.getDateDeSortie());
         save(update);
         return update;
     }
 
-    private void save(FilmEntity filmEntity) throws FilmDejaExistant {
+    private void save(FilmEntity filmEntity) {
         try{
             filmRepository.save(filmEntity);
         }
@@ -59,4 +61,8 @@ public class FilmService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public FilmEntity getFilm(Long filmId) {
+        return filmRepository.findById(filmId);
+    }
 }

@@ -3,7 +3,7 @@ package services;
 import entities.ActeurEntity;
 import entities.FilmEntity;
 import entities.ParticipationFilmEntity;
-import entities.ParticipationFilmRepository;
+import repositories.ParticipationFilmRepository;
 import enumerations.ImportanceEnum;
 import exceptions.ParticipationDejaExistante;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class ParticipationFilmService {
     }
 
     public int nombreFilm(ActeurEntity acteur) {
-        return acteur.getParticipationFilmList().size();
+            return acteur.getParticipationFilmList().size();
     }
 
     public int nombreActeur(FilmEntity film) {
@@ -44,6 +44,11 @@ public class ParticipationFilmService {
 
     public ParticipationFilmEntity ajouterParticipationFilm(ActeurEntity acteur, FilmEntity film){
         return this.ajouterParticipationFilm(acteur,film, ImportanceEnum.IMPORTANCE_INCONNUE);
+    }
+
+
+    public ParticipationFilmEntity getParticipationFilm(Long acteur, Long film){
+        return participationFilmRepository.search(acteur,film);
     }
 
     public void deleteParticipationFilm(Long acteurId){

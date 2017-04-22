@@ -1,12 +1,8 @@
 package entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import enumerations.ImportanceEnum;
 import lombok.*;
-import org.springframework.context.annotation.Import;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,23 +14,25 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties=true)
 @Table(name="participation_film")
-@JsonSerialize(using = ParticipationSerializer.class)
 @IdClass(ParticipationFilmEntity.class)
 public class ParticipationFilmEntity implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private ImportanceEnum importance;
 
     @Id
     @ManyToOne()
     @JoinColumn(name="acteur_id")
+    @JsonIgnore
     private ActeurEntity acteur;
 
     @Id
     @ManyToOne()
     @JoinColumn(name="film_id")
+    @JsonIgnore
     private FilmEntity film;
 
     @Override
