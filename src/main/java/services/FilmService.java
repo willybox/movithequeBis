@@ -15,10 +15,12 @@ import java.util.List;
 public class FilmService {
 
     public FilmRepository filmRepository;
+    public ParticipationFilmService participationFilmService;
 
     @Autowired
-    public FilmService(FilmRepository filmRepository){
+    public FilmService(FilmRepository filmRepository, ParticipationFilmService participationFilmService){
         this.filmRepository=filmRepository;
+        this.participationFilmService = participationFilmService;
     }
 
     @Transactional
@@ -34,6 +36,7 @@ public class FilmService {
 
     @Transactional
     public void deleteFilm(Long filmId) {
+        participationFilmService.deleteParticipationFilmFromFilm(filmId);
         filmRepository.delete(filmId);
     }
 

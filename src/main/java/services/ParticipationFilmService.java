@@ -3,20 +3,29 @@ package services;
 import entities.ActeurEntity;
 import entities.FilmEntity;
 import entities.ParticipationFilmEntity;
+import org.springframework.transaction.annotation.Transactional;
+import repositories.ActeurRepository;
+import repositories.FilmRepository;
 import repositories.ParticipationFilmRepository;
 import enumerations.ImportanceEnum;
 import exceptions.ParticipationDejaExistante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ParticipationFilmService {
 
     public ParticipationFilmRepository participationFilmRepository;
+    public FilmRepository filmRepository;
+    public ActeurRepository acteurRepository;
 
     @Autowired
-    public ParticipationFilmService(ParticipationFilmRepository participationFilmRepository){
+    public ParticipationFilmService(ParticipationFilmRepository participationFilmRepository, FilmRepository filmRepository, ActeurRepository acteurRepository){
         this.participationFilmRepository=participationFilmRepository;
+        this.filmRepository = filmRepository;
+        this.acteurRepository = acteurRepository;
     }
 
     public int nombreFilm(ActeurEntity acteur) {
@@ -27,23 +36,13 @@ public class ParticipationFilmService {
         return film.getParticipationFilmList().size();
     }
 
-    public ParticipationFilmEntity ajouterParticipationFilm(ActeurEntity acteur, FilmEntity film, ImportanceEnum importance){
-        for(ParticipationFilmEntity participationFilmEntity1 : acteur.getParticipationFilmList() ){
-            if(participationFilmEntity1.getActeur() == acteur && participationFilmEntity1.getFilm()== film){
-                throw new ParticipationDejaExistante();
-            }
-        }
-
-        ParticipationFilmEntity participationFilmEntity = ParticipationFilmEntity.builder().film(film).acteur(acteur).importance(importance).build();
-
-        acteur.getParticipationFilmList().add(participationFilmEntity);
-        film.getParticipationFilmList().add(participationFilmEntity);
-
-        return participationFilmEntity;
+    @Transactional
+    public void ajouterParticipationFilm(ActeurEntity acteur, Long filmId, ImportanceEnum importance){
+        participationFilmRepository.saveTest(acteur.getId(),filmId,importance.toString());
     }
 
-    public ParticipationFilmEntity ajouterParticipationFilm(ActeurEntity acteur, FilmEntity film){
-        return this.ajouterParticipationFilm(acteur,film, ImportanceEnum.IMPORTANCE_INCONNUE);
+    public void ajouterParticipationFilm(ActeurEntity acteur, Long filmId){
+        this.ajouterParticipationFilm(acteur,filmId, ImportanceEnum.IMPORTANCE_INCONNUE);
     }
 
 
@@ -51,8 +50,12 @@ public class ParticipationFilmService {
         return participationFilmRepository.search(acteur,film);
     }
 
-    public void deleteParticipationFilm(Long acteurId){
+    public void deleteParticipationFilmFromActeur(Long acteurId){
         participationFilmRepository.deleteByActeur(acteurId);
+    }
+
+    public void deleteParticipationFilmFromFilm(Long filmId){
+        participationFilmRepository.deleteByFilm(filmId);
     }
 
 }

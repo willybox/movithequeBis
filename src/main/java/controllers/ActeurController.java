@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.ActeurEntity;
+import entities.FilmEntity;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,11 @@ public class ActeurController {
     public String acteurs(Model model) {
         RestTemplate restTemplate = new RestTemplate();
         String urlApiListeActeurs = "http://localhost:8080/api/acteur/";
+        String urlApiListeFilms = "http://localhost:8080/api/film/";
         ResponseEntity<List<ActeurEntity>> reponseApiListeActeurs = restTemplate.exchange(urlApiListeActeurs, HttpMethod.GET, null,new ParameterizedTypeReference<List<ActeurEntity>>() {});
+        ResponseEntity<List<FilmEntity>> reponseApiListeFilms = restTemplate.exchange(urlApiListeFilms, HttpMethod.GET, null,new ParameterizedTypeReference<List<FilmEntity>>() {});
         model.addAttribute("acteursListe",reponseApiListeActeurs.getBody());
+        model.addAttribute("filmsListe",reponseApiListeFilms.getBody());
         return "acteurs";
     }
 }

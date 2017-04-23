@@ -1,6 +1,7 @@
 package services;
 
 import entities.ActeurEntity;
+import enumerations.ImportanceEnum;
 import repositories.ActeurRepository;
 import exceptions.ActeurDejaExistant;
 import org.hibernate.exception.ConstraintViolationException;
@@ -35,19 +36,32 @@ public class ActeurService {
 
     @Transactional
     public void deleteActeur(Long acteurId) {
-        participationFilmService.deleteParticipationFilm(acteurId);
+        participationFilmService.deleteParticipationFilmFromActeur(acteurId);
         acteurRepository.delete(acteurId);
     }
 
-    public ActeurEntity modifierActeur(Long acteurId, ActeurEntity acteurEntity) {
+    @Transactional
+    public ActeurEntity modifierActeur(Long acteurId, ActeurEntity acteurEntity,List<Long> listeFilmId1,List<Long> listeFilmId2,List<Long> listeFilmId3) {
         ActeurEntity update = acteurRepository.findOne(acteurId);
         update.setNom(acteurEntity.getNom());
         update.setPrenom(acteurEntity.getPrenom());
         update.setDateDeNaissance(acteurEntity.getDateDeNaissance());
+        update.setId(acteurId);
+        participationFilmService.deleteParticipationFilmFromActeur(acteurId);
+        for(Long filmId : listeFilmId1){
+            participationFilmService.ajouterParticipationFilm(update,filmId, ImportanceEnum.IMPORTANCE_PRINCIPALE);
+        }
+        for(Long filmId : listeFilmId2){
+            participationFilmService.ajouterParticipationFilm(update,filmId, ImportanceEnum.IMPORTANCE_SECONDAIRE);
+        }
+        for(Long filmId : listeFilmId3){
+            participationFilmService.ajouterParticipationFilm(update,filmId, ImportanceEnum.IMPORTANCE_INCONNUE);
+        }
         save(update);
         return update;
     }
 
+    @Transactional
     private void save(ActeurEntity acteurEntity) {
         try{
             acteurRepository.save(acteurEntity);

@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.ActeurEntity;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import services.ActeurService;
 
 import javax.validation.Valid;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.status;
@@ -50,12 +52,38 @@ public class ActeurApiController {
     }
 
     @PutMapping(path="/update/{acteur_id}")
-    public ResponseEntity updateActeur(@PathVariable("acteur_id") Long acteurId, @Valid ActeurEntity acteurEntity, Errors errors) {
+    @ResponseBody
+    public ResponseEntity updateActeur(@PathVariable("acteur_id") Long acteurId, @RequestParam("selectFilm1") List<String> selectFilm1, @RequestParam("selectFilm2") List<String> selectFilm2, @RequestParam("selectFilm3") List<String> selectFilm3, @Valid ActeurEntity acteurEntity,Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
         }
 
-        acteurService.modifierActeur(acteurId, acteurEntity);
+        List<Long> listeFilmId1 = new ArrayList<Long>();
+        List<Long> listeFilmId2 = new ArrayList<Long>();
+        List<Long> listeFilmId3 = new ArrayList<Long>();
+
+        for(String s : selectFilm1){
+            s = s.replaceAll("\"", "");
+            s = s.replaceAll("\\]", "");
+            s = s.replaceAll("\\[", "");
+            if(!s.equals(""))
+                listeFilmId1.add(Long.valueOf(s));
+        }
+        for(String s : selectFilm2){
+            s = s.replaceAll("\"", "");
+            s = s.replaceAll("\\]", "");
+            s = s.replaceAll("\\[", "");
+            if(!s.equals(""))
+                listeFilmId2.add(Long.valueOf(s));
+        }
+        for(String s : selectFilm3){
+            s = s.replaceAll("\"", "");
+            s = s.replaceAll("\\]", "");
+            s = s.replaceAll("\\[", "");
+            if(!s.equals(""))
+                listeFilmId3.add(Long.valueOf(s));
+        }
+        acteurService.modifierActeur(acteurId, acteurEntity,listeFilmId1,listeFilmId2,listeFilmId3);
         return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.OK);
     }
 }

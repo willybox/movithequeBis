@@ -7,6 +7,7 @@
     <link th:href="@{/css/starter-template.css}" rel="stylesheet" media="screen"> </link>
     <link th:href="@{/css/footable.bootstrap.min.css}" rel="stylesheet" media="screen"> </link>
     <link th:href="@{/css/toastr.css}" rel="stylesheet"></link>
+    <link th:href="@{/css/select2.css}" rel="stylesheet"></link>
     <style>
         .modal-dialog {
             position: absolute;
@@ -52,6 +53,30 @@
                     <label for="dateDeNaissance" class="col-sm-4 control-label">Date de naissance</label>
                     <div class="col-sm-8">
                         <input type="date" class="form-control" id="dateDeNaissance" name="dateDeNaissance"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectFilm1" class="col-sm-4 control-label">Premiers Roles</label>
+                    <div class="col-sm-8">
+                        <select name="selectFilm1[]" class="form-control js-example-basic-multiple" id="selectFilm1" multiple="multiple">
+                            <option th:each="film : ${filmsListe}" th:value="${film.id}" th:text="${film.nom}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectFilm1" class="col-sm-4 control-label">Seconds Roles</label>
+                    <div class="col-sm-8">
+                        <select name="selectFilm2[]" class="form-control js-example-basic-multiple" id="selectFilm2" multiple="multiple">
+                            <option th:each="film : ${filmsListe}" th:value="${film.id}" th:text="${film.nom}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectFilm1" class="col-sm-4 control-label">Roles Inconnus</label>
+                    <div class="col-sm-8">
+                        <select name="selectFilm3[]" class="form-control js-example-basic-multiple" id="selectFilm3" multiple="multiple">
+                            <option th:each="film : ${filmsListe}" th:value="${film.id}" th:text="${film.nom}"></option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -108,11 +133,6 @@
             </tr>
             </tbody>
             <tfoot>
-            <tr>
-                <td colspan="5">
-                    <ul class="pagination pull-right"></ul>
-                </td>
-            </tr>
             </tfoot>
         </table>
     </div>
@@ -130,8 +150,57 @@
 <script th:src="@{/js/bootstrap.min.js}" ></script>
 <script th:src="@{/js/footable.min.js}"></script>
 <script th:src="@{/js/toastr.js}"></script>
+<script th:src="@{/js/select2.js}"></script>
 <script>
     jQuery(function($){
+        $('#selectFilm1').select2({
+            width: '100%'
+        });
+        $('#selectFilm2').select2({
+            width: '100%'
+        });
+        $('#selectFilm3').select2({
+            width: '100%'
+        });
+
+        $('#selectFilm1').on("select2:select",function(e){
+            $("#selectFilm2>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectFilm3>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectFilm2").select2();
+            $("#selectFilm3").select2();
+        });
+        $('#selectFilm2').on("select2:select",function(e){
+            $("#selectFilm1>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectFilm3>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectFilm1").select2();
+            $("#selectFilm3").select2();
+        });
+        $('#selectFilm3').on("select2:select",function(e){
+            $("#selectFilm1>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectFilm2>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectFilm1").select2();
+            $("#selectFilm2").select2();
+        });
+
+        $('#selectFilm1').on("select2:unselect",function(e){
+            $("#selectFilm2>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectFilm3>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectFilm2").select2();
+            $("#selectFilm3").select2();
+        });
+        $('#selectFilm2').on("select2:unselect",function(e){
+            $("#selectFilm1>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectFilm3>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectFilm1").select2();
+            $("#selectFilm3").select2();
+        });
+        $('#selectFilm3').on("select2:unselect",function(e){
+            $("#selectFilm1>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectFilm2>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectFilm1").select2();
+            $("#selectFilm2").select2();
+        });
+
         var $modal = $('#editor-modal'),
             $editor = $('#editor'),
             $editorTitle = $('#editor-title');
@@ -168,6 +237,36 @@
                     $editor.find('#nom').val(values.col2);
                     $editor.find('#prenom').val(values.col3);
                     $editor.find('#dateDeNaissance').val(values.col5);
+                    $.ajax({
+                        url: "http://localhost:8080/api/acteur/"+values.col1,
+                        method:"get",
+                        success : function(res, statut){
+                            var listFilms = res.filmsList;
+                            var listeFilm1 = [];
+                            var listeFilm2 = [];
+                            var listeFilm3 = [];
+                            $.each(listFilms,function(index,film){
+                              if(film.importance=="IMPORTANCE_SECONDAIRE"){
+                                  listeFilm2.push(film.filmId);
+                                  $("#selectFilm1>option[value="+film.filmId+"]").attr('disabled','disabled');
+                                  $("#selectFilm3>option[value="+film.filmId+"]").attr('disabled','disabled');
+                               }
+                               else if(film.importance=="IMPORTANCE_PRINCIPALE"){
+                                  listeFilm1.push(film.filmId);
+                                  $("#selectFilm2>option[value="+film.filmId+"]").attr('disabled','disabled');
+                                  $("#selectFilm3>option[value="+film.filmId+"]").attr('disabled','disabled');
+                              }
+                              else{
+                                  listeFilm3.push(film.filmId);
+                                  $("#selectFilm1>option[value="+film.filmId+"]").attr('disabled','disabled');
+                                  $("#selectFilm2>option[value="+film.filmId+"]").attr('disabled','disabled');
+                              }
+                           });
+                            $('#selectFilm1').val(listeFilm1).trigger('change');
+                            $('#selectFilm2').val(listeFilm2).trigger('change');
+                            $('#selectFilm3').val(listeFilm3).trigger('change');
+                        },
+                    });
                     $modal.data('row', row);
                     $editorTitle.text('Editer acteur ' + values.col2+' '+values.col3);
                     $modal.modal('show');
@@ -218,14 +317,16 @@
                     col3: $editor.find('#prenom').val(),
                     col4: stringDate,
                     col5: $editor.find('#dateDeNaissance').val(),
+                    col6: $editor.find('#selectFilm1').val(),
+                    col7: $editor.find('#selectFilm2').val(),
+                    col8: $editor.find('#selectFilm3').val()
                 };
 
             if (row instanceof FooTable.Row){
-                console.log(values);
                 $.ajax({
                     url: "http://localhost:8080/api/acteur/update/"+values.col1,
                     method:"put",
-                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col5},
+                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col5,selectFilm1:JSON.stringify(values.col6),selectFilm2:JSON.stringify(values.col7),selectFilm3:JSON.stringify(values.col8)},
                     success : function(res, statut){
                         $modal.modal('hide');
                         row.val(values);

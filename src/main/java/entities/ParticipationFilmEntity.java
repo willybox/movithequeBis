@@ -12,25 +12,24 @@ import java.io.Serializable;
 @Entity
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor(suppressConstructorProperties=true)
+@AllArgsConstructor
 @Table(name="participation_film")
 @IdClass(ParticipationFilmEntity.class)
 public class ParticipationFilmEntity implements Serializable{
 
-    private static final long serialVersionUID = 1L;
 
     @Enumerated(EnumType.STRING)
     @JsonIgnore
     private ImportanceEnum importance;
 
     @Id
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="acteur_id")
     @JsonIgnore
     private ActeurEntity acteur;
 
     @Id
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="film_id")
     @JsonIgnore
     private FilmEntity film;
