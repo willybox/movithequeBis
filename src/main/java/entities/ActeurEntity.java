@@ -41,6 +41,7 @@ public class ActeurEntity {
 
     @Column(name="acteur_datedenaissance")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT")
     private Date dateDeNaissance;
 
     @OneToMany(mappedBy = "serie")

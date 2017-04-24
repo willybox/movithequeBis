@@ -1,5 +1,6 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jsonserializer.ParticipationFilmFilmSerializer;
@@ -33,6 +34,7 @@ public class FilmEntity {
 
     @Column(name="film_datedesortie")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT")
     private Date dateDeSortie;
 
     @OneToMany(targetEntity = ParticipationFilmEntity.class,mappedBy = "film")

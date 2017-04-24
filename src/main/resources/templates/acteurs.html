@@ -225,7 +225,10 @@
                     window.location.href = "http://localhost:8080/api/acteur/"+values.col1;
                 },
                 addRow: function(){
-                    $modal.removeData('row');
+                    $modal.removeData();
+                    $("#selectFilm1").val('').trigger('change');
+                    $("#selectFilm3").val('').trigger('change');
+                    $("#selectFilm2").val('').trigger('change');
                     $editor[0].reset();
                     $editorTitle.text('Ajouter un nouvel acteur');
                     $modal.modal('show');
