@@ -34,21 +34,15 @@ public class ActeurApiControllerTest {
 
     @Test
     public void add_nouvel_acteur_should_succeed() {
-        ActeurEntity acteur = ActeurEntity.builder()
-                .id(5L)
-                .nom("a")
-                .prenom("a")
-                .build();
         given()
                 .log().all()
-                .contentType(JSON)
-                .body(acteur)
+                .formParam("nom","a")
+                .formParam("prenom","a")
         .when()
                 .post("api/acteur/add")
         .then()
                 .log().all()
                 .statusCode(201)
-                .body("id",is(5L))
                 .body("nom",is("a"))
                 .body("prenom",is("a"));
     }

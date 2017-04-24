@@ -26,9 +26,9 @@ public class ActeurApiController {
 
     @PostMapping(path="/add")
     public ResponseEntity addNouvelActeur(@Valid ActeurEntity acteurEntity,
-                                          @RequestParam("selectFilm1") List<String> selectFilm1,
-                                          @RequestParam("selectFilm2") List<String> selectFilm2,
-                                          @RequestParam("selectFilm3") List<String> selectFilm3,
+                                          @RequestParam(value="selectFilm1",required = false) List<String> selectFilm1,
+                                          @RequestParam(value="selectFilm2",required = false) List<String> selectFilm2,
+                                          @RequestParam(value="selectFilm3",required = false) List<String> selectFilm3,
                                           Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
@@ -113,13 +113,14 @@ public class ActeurApiController {
      */
     private List<Long> getCorrectIdList(List<String> filmSelection) {
         List<Long> listeFilmId = new ArrayList<Long>();
-
-        for(String s : filmSelection){
-            s = s.replaceAll("\"", "");
-            s = s.replaceAll("\\]", "");
-            s = s.replaceAll("\\[", "");
-            if(!s.equals(""))
-                listeFilmId.add(Long.valueOf(s));
+        if(filmSelection != null){
+            for(String s : filmSelection){
+                s = s.replaceAll("\"", "");
+                s = s.replaceAll("\\]", "");
+                s = s.replaceAll("\\[", "");
+                if(!s.equals(""))
+                    listeFilmId.add(Long.valueOf(s));
+            }
         }
         return listeFilmId;
     }
