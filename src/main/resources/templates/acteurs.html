@@ -326,7 +326,13 @@
                 $.ajax({
                     url: "http://localhost:8080/api/acteur/update/"+values.col1,
                     method:"put",
-                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col5,selectFilm1:JSON.stringify(values.col6),selectFilm2:JSON.stringify(values.col7),selectFilm3:JSON.stringify(values.col8)},
+                    data: {nom:values.col2,
+                        prenom:values.col3,
+                        dateDeNaissance:values.col5,
+                        selectFilm1:JSON.stringify(values.col6),
+                        selectFilm2:JSON.stringify(values.col7),
+                        selectFilm3:JSON.stringify(values.col8)
+                    },
                     success : function(res, statut){
                         $modal.modal('hide');
                         row.val(values);
@@ -352,7 +358,13 @@
                     url: "http://localhost:8080/api/acteur/add",
                     method:"post",
                     dataType:'json',
-                    data: {nom:values.col2,prenom:values.col3, dateDeNaissance:values.col5},
+                    data: {nom:values.col2,
+                        prenom:values.col3,
+                        dateDeNaissance:values.col5,
+                        selectFilm1:JSON.stringify(values.col6),
+                        selectFilm2:JSON.stringify(values.col7),
+                        selectFilm3:JSON.stringify(values.col8)
+                    },
                     success : function(res){
                         values.col1=res.id;
                         ft.rows.add(values);

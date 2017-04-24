@@ -24,8 +24,15 @@ public class ActeurService {
     }
 
     @Transactional
-    public ActeurEntity createActeur(ActeurEntity acteurEntity) {
+    public ActeurEntity createActeur(ActeurEntity acteurEntity,
+                                     List<Long> listeFilmId1,
+                                     List<Long> listeFilmId2,
+                                     List<Long> listeFilmId3) {
         save(acteurEntity);
+
+        addParticipation(listeFilmId1, acteurEntity, ImportanceEnum.IMPORTANCE_PRINCIPALE);
+        addParticipation(listeFilmId2, acteurEntity, ImportanceEnum.IMPORTANCE_SECONDAIRE);
+        addParticipation(listeFilmId3, acteurEntity, ImportanceEnum.IMPORTANCE_INCONNUE);
         return acteurEntity;
     }
 
@@ -41,22 +48,22 @@ public class ActeurService {
     }
 
     @Transactional
-    public ActeurEntity modifierActeur(Long acteurId, ActeurEntity acteurEntity,List<Long> listeFilmId1,List<Long> listeFilmId2,List<Long> listeFilmId3) {
+    public ActeurEntity modifierActeur(Long acteurId,
+                                       ActeurEntity acteurEntity,
+                                       List<Long> listeFilmId1,
+                                       List<Long> listeFilmId2,
+                                       List<Long> listeFilmId3) {
         ActeurEntity update = acteurRepository.findOne(acteurId);
         update.setNom(acteurEntity.getNom());
         update.setPrenom(acteurEntity.getPrenom());
         update.setDateDeNaissance(acteurEntity.getDateDeNaissance());
         update.setId(acteurId);
         participationFilmService.deleteParticipationFilmFromActeur(acteurId);
-        for(Long filmId : listeFilmId1){
-            participationFilmService.ajouterParticipationFilm(update,filmId, ImportanceEnum.IMPORTANCE_PRINCIPALE);
-        }
-        for(Long filmId : listeFilmId2){
-            participationFilmService.ajouterParticipationFilm(update,filmId, ImportanceEnum.IMPORTANCE_SECONDAIRE);
-        }
-        for(Long filmId : listeFilmId3){
-            participationFilmService.ajouterParticipationFilm(update,filmId, ImportanceEnum.IMPORTANCE_INCONNUE);
-        }
+
+        addParticipation(listeFilmId1, update, ImportanceEnum.IMPORTANCE_PRINCIPALE);
+        addParticipation(listeFilmId2, update, ImportanceEnum.IMPORTANCE_SECONDAIRE);
+        addParticipation(listeFilmId3, update, ImportanceEnum.IMPORTANCE_INCONNUE);
+
         save(update);
         return update;
     }
@@ -81,5 +88,11 @@ public class ActeurService {
     @Transactional(readOnly = true)
     public ActeurEntity getActeur(Long acteurId) {
         return acteurRepository.findById(acteurId);
+    }
+
+    private void addParticipation(List<Long> listeFilmId, ActeurEntity update, ImportanceEnum importance) {
+        for(Long filmId : listeFilmId){
+            participationFilmService.ajouterParticipationFilm(update,filmId, importance);
+        }
     }
 }

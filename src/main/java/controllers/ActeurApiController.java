@@ -25,11 +25,21 @@ public class ActeurApiController {
     private ActeurService acteurService;
 
     @PostMapping(path="/add")
-    public ResponseEntity addNouvelActeur(@Valid ActeurEntity acteurEntity, Errors errors) {
+    public ResponseEntity addNouvelActeur(@Valid ActeurEntity acteurEntity,
+                                          @RequestParam("selectFilm1") List<String> selectFilm1,
+                                          @RequestParam("selectFilm2") List<String> selectFilm2,
+                                          @RequestParam("selectFilm3") List<String> selectFilm3,
+                                          Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
         }
-        acteurService.createActeur(acteurEntity);
+
+        acteurService.createActeur(
+                acteurEntity,
+                getCorrectIdList(selectFilm1),
+                getCorrectIdList(selectFilm2),
+                getCorrectIdList(selectFilm3)
+        );
 
         return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
     }
@@ -51,39 +61,68 @@ public class ActeurApiController {
         return acteurService.getActeur(acteurId);
     }
 
+    /**
+     * <p>A propos des listes, le javascript retourne une liste sous la forme suivante:
+     * <br />["1","2",...,"n"]
+     * <br />List< String > list;
+     * <br />list.get(0) = ["1"
+     * <br />list.get(2) = "2"
+     * <br />...
+     * <br />list.get(n) = "n"]
+     * </p>
+     * @param acteurId
+     * @param selectFilm1
+     * @param selectFilm2
+     * @param selectFilm3
+     * @param acteurEntity
+     * @param errors
+     * @return
+     */
     @PutMapping(path="/update/{acteur_id}")
     @ResponseBody
-    public ResponseEntity updateActeur(@PathVariable("acteur_id") Long acteurId, @RequestParam("selectFilm1") List<String> selectFilm1, @RequestParam("selectFilm2") List<String> selectFilm2, @RequestParam("selectFilm3") List<String> selectFilm3, @Valid ActeurEntity acteurEntity,Errors errors) {
+    public ResponseEntity updateActeur(@PathVariable("acteur_id") Long acteurId,
+                                       @RequestParam("selectFilm1") List<String> selectFilm1,
+                                       @RequestParam("selectFilm2") List<String> selectFilm2,
+                                       @RequestParam("selectFilm3") List<String> selectFilm3,
+                                       @Valid ActeurEntity acteurEntity,Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
         }
 
-        List<Long> listeFilmId1 = new ArrayList<Long>();
-        List<Long> listeFilmId2 = new ArrayList<Long>();
-        List<Long> listeFilmId3 = new ArrayList<Long>();
-
-        for(String s : selectFilm1){
-            s = s.replaceAll("\"", "");
-            s = s.replaceAll("\\]", "");
-            s = s.replaceAll("\\[", "");
-            if(!s.equals(""))
-                listeFilmId1.add(Long.valueOf(s));
-        }
-        for(String s : selectFilm2){
-            s = s.replaceAll("\"", "");
-            s = s.replaceAll("\\]", "");
-            s = s.replaceAll("\\[", "");
-            if(!s.equals(""))
-                listeFilmId2.add(Long.valueOf(s));
-        }
-        for(String s : selectFilm3){
-            s = s.replaceAll("\"", "");
-            s = s.replaceAll("\\]", "");
-            s = s.replaceAll("\\[", "");
-            if(!s.equals(""))
-                listeFilmId3.add(Long.valueOf(s));
-        }
-        acteurService.modifierActeur(acteurId, acteurEntity,listeFilmId1,listeFilmId2,listeFilmId3);
+        acteurService.modifierActeur(
+            acteurId,
+            acteurEntity,
+            getCorrectIdList(selectFilm1),
+            getCorrectIdList(selectFilm2),
+            getCorrectIdList(selectFilm3)
+        );
         return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.OK);
     }
+
+    /**
+     * <p>Rappel:
+     * <br />["1","2",...,"n"]
+     * <br />List< String > list;
+     * <br />list.get(0) = ["1"
+     * <br />list.get(2) = "2"
+     * <br />...
+     * <br />list.get(n) = "n"]
+     * </p>
+     * @param filmSelection
+     * @return
+     */
+    private List<Long> getCorrectIdList(List<String> filmSelection) {
+        List<Long> listeFilmId = new ArrayList<Long>();
+
+        for(String s : filmSelection){
+            s = s.replaceAll("\"", "");
+            s = s.replaceAll("\\]", "");
+            s = s.replaceAll("\\[", "");
+            if(!s.equals(""))
+                listeFilmId.add(Long.valueOf(s));
+        }
+        return listeFilmId;
+    }
 }
+
+
