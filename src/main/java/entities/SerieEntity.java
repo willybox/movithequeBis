@@ -18,9 +18,6 @@ public class SerieEntity {
     @Column(name="serie_id")
     private Long id;
 
-    @Column(name="serie_name")
-    private String name;
-
-    @OneToMany(mappedBy = "serie")
-    private List<EpisodeEntity> episodeList;
+    @Column(name="serie_nom")
+    private String nom;
 }

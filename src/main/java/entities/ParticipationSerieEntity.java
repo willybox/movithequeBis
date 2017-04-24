@@ -1,5 +1,6 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import enumerations.ImportanceEnum;
 import lombok.*;
 
@@ -12,45 +13,44 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="participation_saison")
-public class ParticipationSaisonEntity implements Serializable{
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
-    @Column(name="saison_id")
-    private Long id;
+@Table(name="participation_serie")
+@IdClass(ParticipationSerieEntity.class)
+public class ParticipationSerieEntity implements Serializable{
+
+
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private ImportanceEnum importance;
 
     @Id
     @ManyToOne
     @JoinColumn(name="acteur_id")
+    @JsonIgnore
     private ActeurEntity acteur;
 
     @Id
     @ManyToOne
-    @JoinColumn(name="saison_id")
-    private SaisonEntity saison;
+    @JoinColumn(name="serie_id")
+    @JsonIgnore
+    private SerieEntity serie;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ParticipationSaisonEntity that = (ParticipationSaisonEntity) o;
+        ParticipationSerieEntity that = (ParticipationSerieEntity) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (importance != that.importance) return false;
         if (acteur != null ? !acteur.equals(that.acteur) : that.acteur != null) return false;
-        return saison != null ? saison.equals(that.saison) : that.saison == null;
+        return serie != null ? serie.equals(that.serie) : that.serie == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (importance != null ? importance.hashCode() : 0);
+        int result = importance != null ? importance.hashCode() : 0;
         result = 31 * result + (acteur != null ? acteur.hashCode() : 0);
-        result = 31 * result + (saison != null ? saison.hashCode() : 0);
+        result = 31 * result + (serie != null ? serie.hashCode() : 0);
         return result;
     }
 }

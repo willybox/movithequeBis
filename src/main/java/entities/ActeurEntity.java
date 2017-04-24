@@ -3,6 +3,7 @@ package entities;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jsonserializer.ParticipationFilmActeurSerializer;
+import jsonserializer.ParticipationSerieActeurSerializer;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -42,8 +43,10 @@ public class ActeurEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateDeNaissance;
 
-    @OneToMany(mappedBy = "acteur")
-    private List<ParticipationSaisonEntity> participationSaisonList;
+    @OneToMany(mappedBy = "serie")
+    @JsonSerialize(using= ParticipationSerieActeurSerializer.class)
+    @JsonProperty("seriesList")
+    private List<ParticipationSerieEntity> participationSerieList;
 
     @OneToMany(targetEntity = ParticipationFilmEntity.class, mappedBy = "acteur")
     @JsonSerialize(using= ParticipationFilmActeurSerializer.class)
@@ -51,7 +54,7 @@ public class ActeurEntity {
     private List<ParticipationFilmEntity> participationFilmList;
 
     public ActeurEntity(){
-        participationSaisonList = new ArrayList<ParticipationSaisonEntity>();
+        participationSerieList = new ArrayList<ParticipationSerieEntity>();
         participationFilmList = new ArrayList<ParticipationFilmEntity>();
     }
 
