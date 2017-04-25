@@ -28,8 +28,8 @@ public class ParticipationSerieActeurSerializer extends StdSerializer<List<Parti
         jgen.writeStartArray();
         for(ParticipationSerieEntity participationSerieEntity : value){
             jgen.writeStartObject();
-            jgen.writeNumberField("filmId",Long.valueOf(participationSerieEntity.getSerie().getId()));
-            jgen.writeStringField("filmNom",participationSerieEntity.getSerie().getNom());
+            jgen.writeNumberField("serieId",Long.valueOf(participationSerieEntity.getSerie().getId()));
+            jgen.writeStringField("serieNom",participationSerieEntity.getSerie().getNom());
             jgen.writeStringField("importance",participationSerieEntity.getImportance().toString());
             jgen.writeEndObject();
         }
