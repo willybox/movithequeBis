@@ -19,16 +19,8 @@ public class ParticipationFilmService {
     public ParticipationFilmRepository participationFilmRepository;
 
     @Autowired
-    public ParticipationFilmService(ParticipationFilmRepository participationFilmRepository, FilmRepository filmRepository, ActeurRepository acteurRepository){
+    public ParticipationFilmService(ParticipationFilmRepository participationFilmRepository){
         this.participationFilmRepository=participationFilmRepository;
-    }
-
-    public int nombreFilm(ActeurEntity acteur) {
-            return acteur.getParticipationFilmList().size();
-    }
-
-    public int nombreActeur(FilmEntity film) {
-        return film.getParticipationFilmList().size();
     }
 
     @Transactional
