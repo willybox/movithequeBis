@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import services.FilmService;
+import utils.Utils;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -20,11 +21,21 @@ public class FilmApiController {
     private FilmService filmService;
 
     @PostMapping(path="/add")
-    public ResponseEntity addNouveauFilm(@Valid FilmEntity filmEntity, Errors errors) {
+    public ResponseEntity addNouveauFilm(@Valid FilmEntity filmEntity,
+                                         @RequestParam(value="selectActeur1",required = false) List<String> selectActeur1,
+                                         @RequestParam(value="selectActeur2",required = false) List<String> selectActeur2,
+                                         @RequestParam(value="selectActeur3",required = false) List<String> selectActeur3,
+                                         Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
         }
-        filmService.createFilm(filmEntity);
+
+        filmService.createFilm(
+                filmEntity,
+                Utils.getCorrectIdList(selectActeur1),
+                Utils.getCorrectIdList(selectActeur2),
+                Utils.getCorrectIdList(selectActeur3)
+        );
 
         return new ResponseEntity<FilmEntity>(filmEntity, HttpStatus.CREATED);
     }
@@ -48,12 +59,21 @@ public class FilmApiController {
     }
 
     @PutMapping(path="/update/{film_id}")
-    public ResponseEntity updateFilm(@PathVariable("film_id") Long filmId, @Valid FilmEntity filmEntity, Errors errors) {
+    public ResponseEntity updateFilm(@PathVariable("film_id") Long filmId,
+                                     @RequestParam("selectActeur1") List<String> selectActeur1,
+                                     @RequestParam("selectActeur2") List<String> selectActeur2,
+                                     @RequestParam("selectActeur3") List<String> selectActeur3,
+                                     @Valid FilmEntity filmEntity, Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
         }
 
-        filmService.modifierFilm(filmId, filmEntity);
+        filmService.modifierFilm(filmId,
+                filmEntity,
+                Utils.getCorrectIdList(selectActeur1),
+                Utils.getCorrectIdList(selectActeur2),
+                Utils.getCorrectIdList(selectActeur3)
+        );
         return new ResponseEntity<FilmEntity>(filmEntity, HttpStatus.OK);
     }
 }

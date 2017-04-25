@@ -7,6 +7,7 @@
     <link th:href="@{/css/starter-template.css}" rel="stylesheet" media="screen"> </link>
     <link th:href="@{/css/footable.bootstrap.min.css}" rel="stylesheet" media="screen"> </link>
     <link th:href="@{/css/toastr.css}" rel="stylesheet"></link>
+    <link th:href="@{/css/select2.css}" rel="stylesheet"></link>
     <style>
         .modal-dialog {
             position: absolute;
@@ -46,6 +47,30 @@
                     <label for="dateDeSortie" class="col-sm-4 control-label">Date de sortie</label>
                     <div class="col-sm-8">
                         <input type="date" class="form-control" id="dateDeSortie" name="dateDeSortie"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectActeur1" class="col-sm-4 control-label">Premiers Roles</label>
+                    <div class="col-sm-8">
+                        <select name="selectActeur1[]" class="form-control js-example-basic-multiple" id="selectActeur1" multiple="multiple">
+                            <option th:each="acteur : ${acteursListe}" th:value="${acteur.id}" th:text="${acteur.prenom + ' '+ acteur.nom}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectActeur2" class="col-sm-4 control-label">Seconds Roles</label>
+                    <div class="col-sm-8">
+                        <select name="selectActeur2[]" class="form-control js-example-basic-multiple" id="selectActeur2" multiple="multiple">
+                            <option th:each="acteur : ${acteursListe}" th:value="${acteur.id}" th:text="${acteur.prenom + ' '+ acteur.nom}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectActeur3" class="col-sm-4 control-label">Roles Inconnus</label>
+                    <div class="col-sm-8">
+                        <select name="selectActeur3[]" class="form-control js-example-basic-multiple" id="selectActeur3" multiple="multiple">
+                            <option th:each="acteur : ${acteursListe}" th:value="${acteur.id}" th:text="${acteur.prenom + ' '+ acteur.nom}"></option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -117,8 +142,38 @@
 <script th:src="@{/js/bootstrap.min.js}" ></script>
 <script th:src="@{/js/footable.min.js}"></script>
 <script th:src="@{/js/toastr.js}"></script>
+<script th:src="@{/js/select2.js}"></script>
 <script>
     jQuery(function($){
+        $('#selectActeur1').select2({
+            width: '100%'
+        });
+        $('#selectActeur2').select2({
+            width: '100%'
+        });
+        $('#selectActeur3').select2({
+            width: '100%'
+        });
+
+        $('#selectActeur1').on("select2:select",function(e){
+            $("#selectActeur2>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur3>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur2").select2();
+            $("#selectActeur3").select2();
+        });
+        $('#selectActeur2').on("select2:select",function(e){
+            $("#selectActeur1>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur3>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur1").select2();
+            $("#selectActeur3").select2();
+        });
+        $('#selectActeur3').on("select2:select",function(e){
+            $("#selectActeur1>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur2>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur1").select2();
+            $("#selectActeur2").select2();
+        });
+
         var $modal = $('#editor-modal'),
             $editor = $('#editor'),
             $editorTitle = $('#editor-title');
@@ -144,6 +199,9 @@
                 },
                 addRow: function(){
                     $modal.removeData('row');
+                    $("#selectActeur1").val('').trigger('change');
+                    $("#selectActeur2").val('').trigger('change');
+                    $("#selectActeur3").val('').trigger('change');
                     $editor[0].reset();
                     $editorTitle.text('Ajouter un nouveau film');
                     $modal.modal('show');
@@ -154,6 +212,36 @@
                     $editor.find('#id').val(values.col1);
                     $editor.find('#nom').val(values.col2);
                     $editor.find('#dateDeSortie').val(values.col4);
+                    $.ajax({
+                        url: "http://localhost:8080/api/film/"+values.col1,
+                        method:"get",
+                        success : function(res, statut){
+                            var listActeurs = res.acteursList;
+                            var listeActeur1 = [];
+                            var listeActeur2 = [];
+                            var listeActeur3 = [];
+                            $.each(listActeurs,function(index,acteur){
+                                if(acteur.importance=="IMPORTANCE_SECONDAIRE"){
+                                    listeActeur2.push(acteur.acteurId);
+                                    $("#selectActeur1>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                    $("#selectActeur3>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                }
+                                else if(acteur.importance=="IMPORTANCE_PRINCIPALE"){
+                                    listeActeur1.push(acteur.acteurId);
+                                    $("#selectActeur2>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                    $("#selectActeur3>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                }
+                                else{
+                                    listeActeur3.push(acteur.acteurId);
+                                    $("#selectActeur1>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                    $("#selectActeur2>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                }
+                            });
+                            $('#selectActeur1').val(listeActeur1).trigger('change');
+                            $('#selectActeur2').val(listeActeur2).trigger('change');
+                            $('#selectActeur3').val(listeActeur3).trigger('change');
+                        },
+                    });
                     $modal.data('row', row);
                     $editorTitle.text('Editer film ' + values.col2);
                     $modal.modal('show');
@@ -203,6 +291,9 @@
                     col2: $editor.find('#nom').val(),
                     col3: stringDate,
                     col4: $editor.find('#dateDeSortie').val(),
+                    col5: $editor.find('#selectActeur1').val(),
+                    col6: $editor.find('#selectActeur2').val(),
+                    col7: $editor.find('#selectActeur3').val()
                 };
 
             if (row instanceof FooTable.Row){
@@ -210,7 +301,12 @@
                 $.ajax({
                     url: "http://localhost:8080/api/film/update/"+values.col1,
                     method:"put",
-                    data: {nom:values.col2, dateDeSortie:values.col4},
+                    data: {nom:values.col2,
+                        dateDeSortie:values.col4,
+                        selectActeur1:JSON.stringify(values.col5),
+                        selectActeur2:JSON.stringify(values.col6),
+                        selectActeur3:JSON.stringify(values.col7)
+                    },
                     success : function(res, statut){
                         $modal.modal('hide');
                         row.val(values);
@@ -236,7 +332,12 @@
                     url: "http://localhost:8080/api/film/add",
                     method:"post",
                     dataType:'json',
-                    data: {nom:values.col2, dateDeSortie:values.col4},
+                    data: {nom:values.col2,
+                        dateDeSortie:values.col4,
+                        selectActeur1:JSON.stringify(values.col5),
+                        selectActeur2:JSON.stringify(values.col6),
+                        selectActeur3:JSON.stringify(values.col7)
+                    },
                     success : function(res){
                         values.col1=res.id;
                         ft.rows.add(values);

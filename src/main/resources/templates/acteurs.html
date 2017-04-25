@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="selectFilm1" class="col-sm-4 control-label">Seconds Roles</label>
+                    <label for="selectFilm2" class="col-sm-4 control-label">Seconds Roles</label>
                     <div class="col-sm-8">
                         <select name="selectFilm2[]" class="form-control js-example-basic-multiple" id="selectFilm2" multiple="multiple">
                             <option th:each="film : ${filmsListe}" th:value="${film.id}" th:text="${film.nom}"></option>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="selectFilm1" class="col-sm-4 control-label">Roles Inconnus</label>
+                    <label for="selectFilm3" class="col-sm-4 control-label">Roles Inconnus</label>
                     <div class="col-sm-8">
                         <select name="selectFilm3[]" class="form-control js-example-basic-multiple" id="selectFilm3" multiple="multiple">
                             <option th:each="film : ${filmsListe}" th:value="${film.id}" th:text="${film.nom}"></option>

@@ -1,6 +1,8 @@
 package services;
 
+import entities.ActeurEntity;
 import entities.FilmEntity;
+import enumerations.ImportanceEnum;
 import repositories.FilmRepository;
 import exceptions.FilmDejaExistant;
 import org.hibernate.exception.ConstraintViolationException;
@@ -24,8 +26,15 @@ public class FilmService {
     }
 
     @Transactional
-    public FilmEntity createFilm(FilmEntity filmEntity) {
+    public FilmEntity createFilm(FilmEntity filmEntity,
+                                 List<Long> listeActeur1,
+                                 List<Long> listeActeur2,
+                                 List<Long> listeActeur3) {
+
         save(filmEntity);
+        participationFilmService.addParticipationsFilm(listeActeur1, filmEntity, ImportanceEnum.IMPORTANCE_PRINCIPALE);
+        participationFilmService.addParticipationsFilm(listeActeur2, filmEntity, ImportanceEnum.IMPORTANCE_SECONDAIRE);
+        participationFilmService.addParticipationsFilm(listeActeur3, filmEntity, ImportanceEnum.IMPORTANCE_INCONNUE);
         return filmEntity;
     }
 
@@ -40,14 +49,28 @@ public class FilmService {
         filmRepository.delete(filmId);
     }
 
-    public FilmEntity modifierFilm(Long filmId, FilmEntity filmEntity){
+    @Transactional
+    public FilmEntity modifierFilm(Long filmId,
+                                   FilmEntity filmEntity,
+                                   List<Long> listeActeurId1,
+                                   List<Long> listeActeurId2,
+                                   List<Long> listeActeurId3){
+
         FilmEntity update = filmRepository.findOne(filmId);
         update.setNom(filmEntity.getNom());
         update.setDateDeSortie(filmEntity.getDateDeSortie());
+
+        participationFilmService.deleteParticipationFilmFromFilm(filmId);
+
+        participationFilmService.addParticipationsFilm(listeActeurId1, update, ImportanceEnum.IMPORTANCE_PRINCIPALE);
+        participationFilmService.addParticipationsFilm(listeActeurId2, update, ImportanceEnum.IMPORTANCE_SECONDAIRE);
+        participationFilmService.addParticipationsFilm(listeActeurId3, update, ImportanceEnum.IMPORTANCE_INCONNUE);
+
         save(update);
         return update;
     }
 
+    @Transactional
     private void save(FilmEntity filmEntity) {
         try{
             filmRepository.save(filmEntity);

@@ -8,7 +8,6 @@ import repositories.ActeurRepository;
 import repositories.FilmRepository;
 import repositories.ParticipationFilmRepository;
 import enumerations.ImportanceEnum;
-import exceptions.ParticipationDejaExistante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +17,10 @@ import java.util.List;
 public class ParticipationFilmService {
 
     public ParticipationFilmRepository participationFilmRepository;
-    public FilmRepository filmRepository;
-    public ActeurRepository acteurRepository;
 
     @Autowired
     public ParticipationFilmService(ParticipationFilmRepository participationFilmRepository, FilmRepository filmRepository, ActeurRepository acteurRepository){
         this.participationFilmRepository=participationFilmRepository;
-        this.filmRepository = filmRepository;
-        this.acteurRepository = acteurRepository;
     }
 
     public int nombreFilm(ActeurEntity acteur) {
@@ -38,13 +33,21 @@ public class ParticipationFilmService {
 
     @Transactional
     public void ajouterParticipationFilm(ActeurEntity acteur, Long filmId, ImportanceEnum importance){
-        participationFilmRepository.saveTest(acteur.getId(),filmId,importance.toString());
+        participationFilmRepository.enregistrerParticipation(acteur.getId(),filmId,importance.toString());
     }
 
     public void ajouterParticipationFilm(ActeurEntity acteur, Long filmId){
         this.ajouterParticipationFilm(acteur,filmId, ImportanceEnum.IMPORTANCE_INCONNUE);
     }
 
+    @Transactional
+    public void ajouterParticipationActeur(FilmEntity film, Long acteurId, ImportanceEnum importance){
+        participationFilmRepository.enregistrerParticipation(acteurId,film.getId(),importance.toString());
+    }
+
+    public void ajouterParticipationActeur(FilmEntity film, Long acteurId){
+        this.ajouterParticipationActeur(film,acteurId, ImportanceEnum.IMPORTANCE_INCONNUE);
+    }
 
     public ParticipationFilmEntity getParticipationFilm(Long acteur, Long film){
         return participationFilmRepository.search(acteur,film);
@@ -56,6 +59,18 @@ public class ParticipationFilmService {
 
     public void deleteParticipationFilmFromFilm(Long filmId){
         participationFilmRepository.deleteByFilm(filmId);
+    }
+
+    public void addParticipationsActeur(List<Long> listeFilmId, ActeurEntity acteur, ImportanceEnum importance) {
+        for(Long filmId : listeFilmId){
+            this.ajouterParticipationFilm(acteur,filmId, importance);
+        }
+    }
+
+    public void addParticipationsFilm(List<Long> listeActeurId, FilmEntity film, ImportanceEnum importance) {
+        for(Long acteurId : listeActeurId){
+            this.ajouterParticipationActeur(film,acteurId, importance);
+        }
     }
 
 }

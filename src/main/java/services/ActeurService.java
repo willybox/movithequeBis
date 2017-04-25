@@ -30,9 +30,9 @@ public class ActeurService {
                                      List<Long> listeFilmId3) {
         save(acteurEntity);
 
-        addParticipation(listeFilmId1, acteurEntity, ImportanceEnum.IMPORTANCE_PRINCIPALE);
-        addParticipation(listeFilmId2, acteurEntity, ImportanceEnum.IMPORTANCE_SECONDAIRE);
-        addParticipation(listeFilmId3, acteurEntity, ImportanceEnum.IMPORTANCE_INCONNUE);
+        participationFilmService.addParticipationsActeur(listeFilmId1, acteurEntity, ImportanceEnum.IMPORTANCE_PRINCIPALE);
+        participationFilmService.addParticipationsActeur(listeFilmId2, acteurEntity, ImportanceEnum.IMPORTANCE_SECONDAIRE);
+        participationFilmService.addParticipationsActeur(listeFilmId3, acteurEntity, ImportanceEnum.IMPORTANCE_INCONNUE);
         return acteurEntity;
     }
 
@@ -60,9 +60,9 @@ public class ActeurService {
         update.setId(acteurId);
         participationFilmService.deleteParticipationFilmFromActeur(acteurId);
 
-        addParticipation(listeFilmId1, update, ImportanceEnum.IMPORTANCE_PRINCIPALE);
-        addParticipation(listeFilmId2, update, ImportanceEnum.IMPORTANCE_SECONDAIRE);
-        addParticipation(listeFilmId3, update, ImportanceEnum.IMPORTANCE_INCONNUE);
+        participationFilmService.addParticipationsActeur(listeFilmId1, update, ImportanceEnum.IMPORTANCE_PRINCIPALE);
+        participationFilmService.addParticipationsActeur(listeFilmId2, update, ImportanceEnum.IMPORTANCE_SECONDAIRE);
+        participationFilmService.addParticipationsActeur(listeFilmId3, update, ImportanceEnum.IMPORTANCE_INCONNUE);
 
         save(update);
         return update;
@@ -90,9 +90,5 @@ public class ActeurService {
         return acteurRepository.findById(acteurId);
     }
 
-    private void addParticipation(List<Long> listeFilmId, ActeurEntity update, ImportanceEnum importance) {
-        for(Long filmId : listeFilmId){
-            participationFilmService.ajouterParticipationFilm(update,filmId, importance);
-        }
-    }
+
 }

@@ -25,6 +25,8 @@ public class ActeurController {
         ResponseEntity<List<FilmEntity>> reponseApiListeFilms = restTemplate.exchange(urlApiListeFilms, HttpMethod.GET, null,new ParameterizedTypeReference<List<FilmEntity>>() {});
         model.addAttribute("acteursListe",reponseApiListeActeurs.getBody());
         model.addAttribute("filmsListe",reponseApiListeFilms.getBody());
+
+
         return "acteurs";
     }
 }

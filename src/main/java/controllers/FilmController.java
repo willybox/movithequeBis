@@ -21,8 +21,11 @@ public class FilmController {
     public String films(Model model) {
         RestTemplate restTemplate = new RestTemplate();
         String urlApiListeFilms = "http://localhost:8080/api/film/";
+        String urlApiListeActeurs = "http://localhost:8080/api/acteur/";
         ResponseEntity<List<FilmEntity>> reponseApiListeFilms = restTemplate.exchange(urlApiListeFilms, HttpMethod.GET, null,new ParameterizedTypeReference<List<FilmEntity>>() {});
+        ResponseEntity<List<ActeurEntity>> reponseApiListeActeurs = restTemplate.exchange(urlApiListeActeurs, HttpMethod.GET, null,new ParameterizedTypeReference<List<ActeurEntity>>() {});
         model.addAttribute("filmsListe",reponseApiListeFilms.getBody());
+        model.addAttribute("acteursListe",reponseApiListeActeurs.getBody());
         return "films";
     }
 }

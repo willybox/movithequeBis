@@ -24,5 +24,5 @@ public interface ParticipationFilmRepository extends JpaRepository<Participation
 
     @Modifying
     @Query(nativeQuery = true, value="insert into participation_film(acteur_id,film_id,importance) values(:acteur_id,:film_id,:importance)")
-    void saveTest(@Param("acteur_id") Long acteurId,@Param("film_id") Long filmId,@Param("importance") String importance);
+    void enregistrerParticipation(@Param("acteur_id") Long acteurId, @Param("film_id") Long filmId, @Param("importance") String importance);
 }
