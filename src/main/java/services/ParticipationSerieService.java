@@ -16,7 +16,7 @@ public class ParticipationSerieService {
     public ParticipationSerieRepository participationSerieRepository;
 
     @Autowired
-    public ParticipationSerieService(ParticipationSerieService participationSerieRepositor){
+    public ParticipationSerieService(ParticipationSerieRepository participationSerieRepository){
         this.participationSerieRepository=participationSerieRepository;
     }
 

@@ -1,0 +1,367 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MovieTheque - Series</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/bootstrap.min.css}"  rel="stylesheet" media="screen"> </link>
+    <link th:href="@{/css/starter-template.css}" rel="stylesheet" media="screen"> </link>
+    <link th:href="@{/css/footable.bootstrap.min.css}" rel="stylesheet" media="screen"> </link>
+    <link th:href="@{/css/toastr.css}" rel="stylesheet"></link>
+    <link th:href="@{/css/select2.css}" rel="stylesheet"></link>
+    <style>
+        .modal-dialog {
+            position: absolute;
+            top: 150px;
+            right: 100px;
+            bottom: 0;
+            left: 150px;
+            z-index: 10040;
+            overflow: auto;
+            overflow-y: auto;
+        }
+        .form-group.required .control-label:after {
+            content:"*";
+            color:red;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="modal fade" id="editor-modal" tabindex="-1" role="dialog" aria-labelledby="editor-title">
+    <div class="modal-dialog" role="document">
+        <form class="modal-content form-horizontal" id="editor">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="editor-title">Ajouter série</h4>
+            </div>
+            <div class="modal-body">
+                <input type="number" id="id" name="id" class="hidden"/>
+                <div class="form-group required">
+                    <label for="nom" class="col-sm-4 control-label">Nom</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="nom" name="nom" required="true"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dateDeSortie" class="col-sm-4 control-label">Date de sortie</label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" id="dateDeSortie" name="dateDeSortie"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectActeur1" class="col-sm-4 control-label">Premiers Roles</label>
+                    <div class="col-sm-8">
+                        <select name="selectActeur1[]" class="form-control js-example-basic-multiple" id="selectActeur1" multiple="multiple">
+                            <option th:each="acteur : ${acteursListe}" th:value="${acteur.id}" th:text="${acteur.prenom + ' '+ acteur.nom}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectActeur2" class="col-sm-4 control-label">Seconds Roles</label>
+                    <div class="col-sm-8">
+                        <select name="selectActeur2[]" class="form-control js-example-basic-multiple" id="selectActeur2" multiple="multiple">
+                            <option th:each="acteur : ${acteursListe}" th:value="${acteur.id}" th:text="${acteur.prenom + ' '+ acteur.nom}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectActeur3" class="col-sm-4 control-label">Roles Inconnus</label>
+                    <div class="col-sm-8">
+                        <select name="selectActeur3[]" class="form-control js-example-basic-multiple" id="selectActeur3" multiple="multiple">
+                            <option th:each="acteur : ${acteursListe}" th:value="${acteur.id}" th:text="${acteur.prenom + ' '+ acteur.nom}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-style="expand-left" class="ladda-button ladda-button-demo btn btn-primary">Sauvegarder</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MovieTheque</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/films/">Films</a></li>
+                <li class="active"><a href="/series/">Séries</a></li>
+                <li><a href="/acteurs/">Acteurs</a></li>
+                <li><a href="/api/">API</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="starter-template">
+        <table id="editing-example"  class="footable table" >
+            <thead>
+            <tr>
+                <th data-visible="false" data-sorted="true" data-sortable="true" data-type="number" data-direction="DESC" data-filterable="false">Id</th>
+                <th>Nom</th>
+                <th>Date de Sortie</th>
+                <th data-visible="false" data-sortable="false" data-filterable="false"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="serie : ${seriesListe}">
+                <td th:text="${serie.id}"></td>
+                <td th:text="${serie.nom}"></td>
+                <td th:text="${serie.dateDeSortie} ? ${#dates.format(serie.dateDeSortie,'dd MMMM yyyy')} : 'Pas de date de sortie'"></td>
+                <td th:text="${serie.dateDeSortie} ? ${#dates.format(serie.dateDeSortie,'yyyy-MM-dd')}"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+
+</div>
+
+
+</body>
+
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/moment.js}"></script>
+<script th:src="@{/js/moment-with-locales.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}" ></script>
+<script th:src="@{/js/footable.min.js}"></script>
+<script th:src="@{/js/toastr.js}"></script>
+<script th:src="@{/js/select2.js}"></script>
+<script>
+    jQuery(function($){
+        $('#selectActeur1').select2({
+            width: '100%'
+        });
+        $('#selectActeur2').select2({
+            width: '100%'
+        });
+        $('#selectActeur3').select2({
+            width: '100%'
+        });
+
+        $('#selectActeur1').on("select2:select",function(e){
+            $("#selectActeur2>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur3>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur2").select2();
+            $("#selectActeur3").select2();
+        });
+        $('#selectActeur2').on("select2:select",function(e){
+            $("#selectActeur1>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur3>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur1").select2();
+            $("#selectActeur3").select2();
+        });
+        $('#selectActeur3').on("select2:select",function(e){
+            $("#selectActeur1>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur2>option[value="+e.params.data.id+"]").attr('disabled','disabled');
+            $("#selectActeur1").select2();
+            $("#selectActeur2").select2();
+        });
+
+        var $modal = $('#editor-modal'),
+            $editor = $('#editor'),
+            $editorTitle = $('#editor-title');
+        var ft = FooTable.init('#editing-example', {
+            paging: {
+                "enabled": true,
+                "countFormat": "{CP} / {TP}",
+            },
+            filtering: {
+                "enabled": true
+            },
+            sorting: {
+                "enabled": true
+            },
+            editing: {
+                "enabled": true,
+                "alwaysShow": true,
+                "allowView": true,
+                "addText": "Ajouter une série",
+                viewRow: function(row){
+                    var values = row.val();
+                    window.location.href = "http://localhost:8080/api/serie/"+values.col1;
+                },
+                addRow: function(){
+                    $modal.removeData('row');
+                    $("#selectActeur1").val('').trigger('change');
+                    $("#selectActeur2").val('').trigger('change');
+                    $("#selectActeur3").val('').trigger('change');
+                    $editor[0].reset();
+                    $editorTitle.text('Ajouter une nouvelle série');
+                    $modal.modal('show');
+                },
+                editRow: function(row){
+                    console.log(row.val());
+                    var values = row.val();
+                    $editor.find('#id').val(values.col1);
+                    $editor.find('#nom').val(values.col2);
+                    $editor.find('#dateDeSortie').val(values.col4);
+                    $.ajax({
+                        url: "http://localhost:8080/api/serie/"+values.col1,
+                        method:"get",
+                        success : function(res, statut){
+                            var listActeurs = res.acteursList;
+                            var listeActeur1 = [];
+                            var listeActeur2 = [];
+                            var listeActeur3 = [];
+                            $.each(listActeurs,function(index,acteur){
+                                if(acteur.importance=="IMPORTANCE_SECONDAIRE"){
+                                    listeActeur2.push(acteur.acteurId);
+                                    $("#selectActeur1>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                    $("#selectActeur3>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                }
+                                else if(acteur.importance=="IMPORTANCE_PRINCIPALE"){
+                                    listeActeur1.push(acteur.acteurId);
+                                    $("#selectActeur2>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                    $("#selectActeur3>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                }
+                                else{
+                                    listeActeur3.push(acteur.acteurId);
+                                    $("#selectActeur1>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                    $("#selectActeur2>option[value="+acteur.acteurId+"]").attr('disabled','disabled');
+                                }
+                            });
+                            $('#selectActeur1').val(listeActeur1).trigger('change');
+                            $('#selectActeur2').val(listeActeur2).trigger('change');
+                            $('#selectActeur3').val(listeActeur3).trigger('change');
+                        },
+                    });
+                    $modal.data('row', row);
+                    $editorTitle.text('Editer série ' + values.col2);
+                    $modal.modal('show');
+                },
+                deleteRow: function(row){
+                    var values = row.val();
+                    $.ajax({
+                        url: "http://localhost:8080/api/serie/delete/"+values.col1,
+                        method:"post",
+                        success : function(res, statut) {
+                            toastr.error("La série a été supprimée");
+                            row.delete();
+                        },
+                        error : function(resultat, statut, erreur){
+                            var responseErrors = JSON.parse(resultat.responseText);
+                            if (responseErrors.errors){
+                                responseErrors.errors.forEach(function(error){
+                                    toastr.error(error);
+                                });
+                            }
+                            else if(responseErrors.message){
+                                toastr.error(responseErrors.message);
+                            }
+                            else{
+                                toastr.error("Il y a eu un problème");
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        $editor.on('submit', function(e){
+            /*<![CDATA[*/
+            if (this.checkValidity   && !this.checkValidity()){
+                return;
+            }/*]]>*/
+
+            e.preventDefault();
+            if($editor.find('#dateDeSortie').val()=="")
+                var stringDate = "Pas de date de sortie";
+            else
+                var stringDate = moment($editor.find('#dateDeSortie').val()).locale("fr").format('LL');
+            var row = $modal.data('row'),
+                values = {
+                    col1: $editor.find('#id').val(),
+                    col2: $editor.find('#nom').val(),
+                    col3: stringDate,
+                    col4: $editor.find('#dateDeSortie').val(),
+                    col5: $editor.find('#selectActeur1').val(),
+                    col6: $editor.find('#selectActeur2').val(),
+                    col7: $editor.find('#selectActeur3').val()
+                };
+
+            if (row instanceof FooTable.Row){
+                console.log(values);
+                $.ajax({
+                    url: "http://localhost:8080/api/serie/update/"+values.col1,
+                    method:"put",
+                    data: {nom:values.col2,
+                        dateDeSortie:values.col4,
+                        selectActeur1:JSON.stringify(values.col5),
+                        selectActeur2:JSON.stringify(values.col6),
+                        selectActeur3:JSON.stringify(values.col7)
+                    },
+                    success : function(res, statut){
+                        $modal.modal('hide');
+                        row.val(values);
+                        toastr.info("La sérié a été modifiée");
+                    },
+                    error : function(resultat, statut, erreur){
+                        var responseErrors = JSON.parse(resultat.responseText);
+                        if (responseErrors.errors){
+                            responseErrors.errors.forEach(function(error){
+                                toastr.error(error);
+                            });
+                        }
+                        else if(responseErrors.message){
+                            toastr.error(responseErrors.message);
+                        }
+                        else{
+                            toastr.error("Il y a eu un problème");
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: "http://localhost:8080/api/serie/add",
+                    method:"post",
+                    dataType:'json',
+                    data: {nom:values.col2,
+                        dateDeSortie:values.col4,
+                        selectActeur1:JSON.stringify(values.col5),
+                        selectActeur2:JSON.stringify(values.col6),
+                        selectActeur3:JSON.stringify(values.col7)
+                    },
+                    success : function(res){
+                        values.col1=res.id;
+                        ft.rows.add(values);
+                        $modal.modal('hide');
+                        toastr.info("La sérié a été ajoutée");
+                    },
+                    error : function(resultat){
+                        var responseErrors = JSON.parse(resultat.responseText);
+                        if (responseErrors.errors){
+                            responseErrors.errors.forEach(function(error){
+                                toastr.error(error);
+                            });
+                        }
+                        else if(responseErrors.message){
+                            toastr.error(responseErrors.message);
+                        }
+                        else{
+                            toastr.error("Il y a eu un problème");
+                        }
+                    }
+                });
+            }
+
+        });
+    });
+</script>
+</html>

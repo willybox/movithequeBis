@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 @Builder
-@AllArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties=true)
 @Table(name="serie",uniqueConstraints={@UniqueConstraint(columnNames = {"serie_id"})})
 public class SerieEntity {
 
@@ -27,7 +27,7 @@ public class SerieEntity {
     @Column(name="serie_id")
     private Long id;
 
-    @Column(name="serie_id")
+    @Column(name="serie_nom")
     @NotNull(message = "Le nom ne peut être vide")
     @NotBlank(message = "Le nom ne peut être vide")
     private String nom;

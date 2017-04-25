@@ -1,8 +1,8 @@
 package repositories;
 
+
 import entities.ParticipationFilmEntity;
 import entities.ParticipationSerieEntity;
-import enumerations.ImportanceEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ParticipationSerieRepository extends JpaRepository<ParticipationSerieRepository, Long> {
+public interface ParticipationSerieRepository extends JpaRepository<ParticipationSerieEntity, Long> {
 
     @Modifying
     @Query(nativeQuery = true, value="delete from participation_serie where acteur_id=:acteur_id")
