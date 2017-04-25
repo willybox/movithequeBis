@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jsonserializer.ParticipationFilmFilmSerializer;
+import jsonserializer.ParticipationSerieSerieSerializer;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,7 +39,7 @@ public class SerieEntity {
     private Date dateDeSortie;
 
     @OneToMany(targetEntity = ParticipationSerieEntity.class,mappedBy = "serie")
-    @JsonSerialize(using = ParticipationFilmFilmSerializer.class)
+    @JsonSerialize(using = ParticipationSerieSerieSerializer.class)
     @JsonProperty("acteursList")
     private List<ParticipationSerieEntity> participationSerieList;
 
