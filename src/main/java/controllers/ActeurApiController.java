@@ -65,9 +65,9 @@ public class ActeurApiController {
     @PutMapping(path="/update/{acteur_id}")
     @ResponseBody
     public ResponseEntity updateActeur(@PathVariable("acteur_id") Long acteurId,
-                                       @RequestParam("selectFilm1") List<String> selectFilm1,
-                                       @RequestParam("selectFilm2") List<String> selectFilm2,
-                                       @RequestParam("selectFilm3") List<String> selectFilm3,
+                                       @RequestParam(value="selectFilm1",required = false) List<String> selectFilm1,
+                                       @RequestParam(value="selectFilm2",required = false) List<String> selectFilm2,
+                                       @RequestParam(value="selectFilm3",required = false) List<String> selectFilm3,
                                        @Valid ActeurEntity acteurEntity,Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));

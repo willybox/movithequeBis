@@ -114,4 +114,25 @@ public class ActeurApiControllerTest {
             .statusCode(200);
     }
 
+    @Test
+    public void update_acteur_should_succeed() {
+        given()
+            .log().all()
+            .formParam("id","1")
+            .formParam("nom","a")
+            .formParam("prenom","a")
+        .when()
+            .post("api/acteur/add");
+
+        given()
+            .log().all()
+                .formParam("nom","aw")
+                .formParam("prenom","aw")
+        .when()
+            .put("api/acteur/update/1")
+        .then()
+            .log().all()
+            .statusCode(200);
+    }
+
 }
