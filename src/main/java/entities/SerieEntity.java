@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 @Builder
 @AllArgsConstructor(suppressConstructorProperties=true)
-@Table(name="serie",uniqueConstraints={@UniqueConstraint(columnNames = {"serie_id"})})
+@Table(name="serie",uniqueConstraints={@UniqueConstraint(columnNames = {"serie_nom"})})
 public class SerieEntity {
 
     @Id

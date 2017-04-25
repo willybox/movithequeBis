@@ -44,7 +44,7 @@ public class ActeurEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT")
     private Date dateDeNaissance;
 
-    @OneToMany(mappedBy = "serie")
+    @OneToMany(targetEntity = ParticipationSerieEntity.class,mappedBy = "serie")
     @JsonSerialize(using= ParticipationSerieActeurSerializer.class)
     @JsonProperty("seriesList")
     private List<ParticipationSerieEntity> participationSerieList;
