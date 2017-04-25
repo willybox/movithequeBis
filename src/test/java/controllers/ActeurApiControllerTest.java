@@ -36,15 +36,46 @@ public class ActeurApiControllerTest {
     public void add_nouvel_acteur_should_succeed() {
         given()
                 .log().all()
+                .formParam("id","1")
                 .formParam("nom","a")
                 .formParam("prenom","a")
         .when()
                 .post("api/acteur/add")
         .then()
-                .log().all()
                 .statusCode(201)
+                .body("id",is(1))
                 .body("nom",is("a"))
                 .body("prenom",is("a"));
+    }
+
+    @Test
+    public void remove_acteur_not_exists_should_404() {
+        given()
+            .log().all()
+            .formParam("id","1")
+        .when()
+            .post("api/delete/1")
+        .then()
+            .statusCode(404);
+    }
+
+    @Test
+    public void remove_acteur_should_succeed() {
+        given()
+            .log().all()
+            .formParam("id","1")
+            .formParam("nom","a")
+            .formParam("prenom","a")
+        .when()
+            .post("api/acteur/add");
+
+        given()
+            .log().all()
+        .when()
+            .post("api/acteur/delete/1")
+        .then()
+            .log().all()
+            .statusCode(200);
     }
 
 }
