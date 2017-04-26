@@ -51,7 +51,6 @@ public class ActeurApiControllerTest {
     public void add_clone_acteur_should_fail() {
         given()
             .log().all()
-            .formParam("id","1")
             .formParam("nom","a")
             .formParam("prenom","a")
         .when()
@@ -59,16 +58,12 @@ public class ActeurApiControllerTest {
 
         given()
             .log().all()
-            .formParam("id","1")
             .formParam("nom","a")
             .formParam("prenom","a")
         .when()
             .post("api/acteur/add")
         .then()
-            .statusCode(201)
-            .body("id",is(1))
-            .body("nom",is("a"))
-            .body("prenom",is("a"));
+            .statusCode(500);
     }
 
     @Test
