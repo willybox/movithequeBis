@@ -159,67 +159,43 @@ public class FilmApiControllerTest {
             .body("$",hasSize(3));
     }
 
-
-
-
-/*
     @Test
     @DirtiesContext
-    public void add_nouvel_acteur_avec_liste_should_succeed() {
+    public void add_new_movie_with_actors_should_succeed() {
 
         given()
-                .log().all()
-                .formParam("id","1")
-                .formParam("nom","Le film")
-                .when()
-                .post("api/film/add");
+            .log().all()
+            .formParam("id","1")
+            .formParam("nom","a")
+            .formParam("prenom","a")
+        .when()
+            .post("api/acteur/add")
+        .then()
+            .statusCode(201)
+            .body("id",is(1))
+            .body("nom",is("a"))
+            .body("prenom",is("a"));
 
         given()
-                .log().all()
-                .formParam("id","1")
-                .formParam("nom","a")
-                .formParam("prenom","a")
-                .formParam("selectFilm1","[\"1\"]")
-                .when()
-                .post("api/acteur/add")
-                .then()
-                .statusCode(201)
-                .body("id",is(1))
-                .body("nom",is("a"))
-                .body("prenom",is("a"));
+            .log().all()
+            .formParam("id","1")
+            .formParam("nom","FilmAvecActeurs")
+            .formParam("selectActeur1","[\"1\"]")
+        .when()
+            .post("api/film/add");
     }
 
     @Test
     @DirtiesContext
-    public void add_nouvel_acteur_avec_film_inconnu_should_fail() {
+    public void add_new_movie_with_unkonw_actor_should_fail() {
         given()
-                .log().all()
-                .formParam("id","1")
-                .formParam("nom","a")
-                .formParam("prenom","a")
-                .formParam("selectFilm1","[\"1\"]")
-                .when()
-                .post("api/acteur/add")
-                .then()
-                .statusCode(500);
+            .log().all()
+            .formParam("id","1")
+            .formParam("nom","FilmActeurInconnu")
+            .formParam("selectActeur1","[\"1\"]")
+        .when()
+            .post("api/film/add")
+        .then()
+            .statusCode(500);
     }
-
-    @Test
-    @DirtiesContext
-    public void add_nouvel_acteur_sans_prenom_should_fail() {
-        given()
-                .log().all()
-                .formParam("id","1")
-                .formParam("nom","a")
-                .when()
-                .post("api/acteur/add")
-                .then()
-                .statusCode(400);
-    }
-*/
-
-
-
-
-
 }
