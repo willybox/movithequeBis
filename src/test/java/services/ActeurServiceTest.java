@@ -1,6 +1,9 @@
 package services;
 
 import entities.ActeurEntity;
+import enumerations.ImportanceEnum;
+import exceptions.ActeurDejaExistant;
+import org.springframework.dao.DataIntegrityViolationException;
 import repositories.ActeurRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +17,7 @@ import java.util.*;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ActeurServiceTest {
@@ -23,6 +27,9 @@ public class ActeurServiceTest {
 
     @Mock
     ActeurRepository acteurRepository;
+
+    @Mock
+    ParticipationFilmService participationFilmService;
 
     @Before
     public void init(){
@@ -34,15 +41,56 @@ public class ActeurServiceTest {
 
         ActeurEntity z = any(ActeurEntity.class);
         when(acteurRepository.save(z)).thenReturn(z);
-
     }
 
     @Test
-    public void acteur_doit_etre_cree(){
-        ActeurEntity acteurEntity = ActeurEntity.builder().nom("ui").prenom("ui").build();
+    public void acteur_creation_doit_etre_appele(){
+        ActeurEntity acteurEntity = any(ActeurEntity.class);
+        List<Long> l1 = Arrays.asList(1L);
+        List<Long> l2 = Arrays.asList(2L);
+        List<Long> l3 = Arrays.asList(3L);
 
-        int count = acteurService.getActeurs().size();
+        acteurService.createActeur(acteurEntity, l1, l2, l3);
 
-        assertThat(acteurService.getActeurs().size()).isEqualTo(count + 1);
+        verify(acteurRepository).save(acteurEntity);
+        verify(participationFilmService).addParticipationsActeur(l1, acteurEntity, ImportanceEnum.IMPORTANCE_PRINCIPALE);
+        verify(participationFilmService).addParticipationsActeur(l2, acteurEntity, ImportanceEnum.IMPORTANCE_SECONDAIRE);
+        verify(participationFilmService).addParticipationsActeur(l3, acteurEntity, ImportanceEnum.IMPORTANCE_INCONNUE);
     }
+
+    @Test(expected= ActeurDejaExistant.class)
+    public void acteur_creation_doit_retourner_exception(){
+        ActeurEntity acteurEntity = ActeurEntity.builder().id(1L).nom("dabitude").prenom("jojo").build();
+        List<Long> l1 = Arrays.asList(1L);
+        List<Long> l2 = Arrays.asList(2L);
+        List<Long> l3 = Arrays.asList(3L);
+
+        acteurService.createActeur(acteurEntity, l1, l2, l3);
+        acteurService.createActeur(acteurEntity, l1, l2, l3);
+    }
+
+    @Test
+    public void acteur_supprime_doit_etre_appele(){
+        Long deletionId = any(Long.class);
+
+        acteurService.deleteActeur(deletionId);
+
+        verify(participationFilmService).deleteParticipationFilmFromActeur(deletionId);
+        verify(acteurRepository).delete(deletionId);
+    }
+
+    @Test
+    public void acteur_modifie_doit_etre_appele(){
+        Long updateId = any(Long.class);
+        ActeurEntity actor = any(ActeurEntity.class);
+        List<Long> l1 = Arrays.asList(1L);
+        List<Long> l2 = Arrays.asList(2L);
+        List<Long> l3 = Arrays.asList(3L);
+
+        acteurService.modifierActeur(updateId, actor, l1, l2, l3);
+
+        verify(participationFilmService).deleteParticipationFilmFromActeur(updateId);
+    }
+
+
 }

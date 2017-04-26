@@ -54,14 +54,18 @@ public class ParticipationFilmService {
     }
 
     public void addParticipationsActeur(List<Long> listeFilmId, ActeurEntity acteur, ImportanceEnum importance) {
-        for(Long filmId : listeFilmId){
-            this.ajouterParticipationFilm(acteur,filmId, importance);
+        if(listeFilmId != null) {
+            for (Long filmId : listeFilmId) {
+                this.ajouterParticipationFilm(acteur, filmId, importance);
+            }
         }
     }
 
     public void addParticipationsFilm(List<Long> listeActeurId, FilmEntity film, ImportanceEnum importance) {
-        for(Long acteurId : listeActeurId){
-            this.ajouterParticipationActeur(film,acteurId, importance);
+        if(listeActeurId != null) {
+            for (Long acteurId : listeActeurId) {
+                this.ajouterParticipationActeur(film, acteurId, importance);
+            }
         }
     }
 
