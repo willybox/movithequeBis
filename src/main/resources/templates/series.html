@@ -174,6 +174,25 @@
             $("#selectActeur2").select2();
         });
 
+        $('#selectActeur3').on("select2:unselect",function(e){
+            $("#selectActeur2>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectActeur3>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectActeur2").select2();
+            $("#selectActeur3").select2();
+        });
+        $('#selectActeur2').on("select2:unselect",function(e){
+            $("#selectActeur1>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectActeur3>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectActeur1").select2();
+            $("#selectActeur3").select2();
+        });
+        $('#selectActeur1').on("select2:unselect",function(e){
+            $("#selectActeur1>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectActeur2>option[value="+e.params.data.id+"]").removeAttr('disabled');
+            $("#selectActeur1").select2();
+            $("#selectActeur2").select2();
+        });
+
         var $modal = $('#editor-modal'),
             $editor = $('#editor'),
             $editorTitle = $('#editor-title');
@@ -199,9 +218,21 @@
                 },
                 addRow: function(){
                     $modal.removeData('row');
+                    $("#selectActeur3").find('option').removeAttr('disabled');
+                    $("#selectActeur2").find('option').removeAttr('disabled');
+                    $("#selectActeur1").find('option').removeAttr('disabled');
                     $("#selectActeur1").val('').trigger('change');
                     $("#selectActeur2").val('').trigger('change');
                     $("#selectActeur3").val('').trigger('change');
+                    $("#selectActeur2").select2({
+                        width: '100%'
+                    });
+                    $("#selectActeur3").select2({
+                        width: '100%'
+                    });
+                    $("#selectActeur1").select2({
+                        width: '100%'
+                    });
                     $editor[0].reset();
                     $editorTitle.text('Ajouter une nouvelle série');
                     $modal.modal('show');
@@ -240,6 +271,15 @@
                             $('#selectActeur1').val(listeActeur1).trigger('change');
                             $('#selectActeur2').val(listeActeur2).trigger('change');
                             $('#selectActeur3').val(listeActeur3).trigger('change');
+                            $("#selectActeur2").select2({
+                                width: '100%'
+                            });
+                            $("#selectActeur3").select2({
+                                width: '100%'
+                            });
+                            $("#selectActeur1").select2({
+                                width: '100%'
+                            });
                         },
                     });
                     $modal.data('row', row);

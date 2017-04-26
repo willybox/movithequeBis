@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.jayway.restassured.RestAssured.given;
@@ -17,6 +18,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@ActiveProfiles("test")
 public class ActeurApiControllerTest {
 
     @LocalServerPort
@@ -112,14 +114,14 @@ public class ActeurApiControllerTest {
     }
 
     @Test
-    public void remove_acteur_not_exists_should_404() {
+    public void remove_acteur_not_exists_should_500() {
         given()
             .log().all()
             .formParam("id","1")
         .when()
             .post("api/acteur/delete/1")
         .then()
-            .statusCode(404);
+            .statusCode(500);
     }
 
     @Test
