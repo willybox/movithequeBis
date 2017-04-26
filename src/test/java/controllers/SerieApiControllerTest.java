@@ -57,8 +57,7 @@ public class SerieApiControllerTest {
         .then()
             .statusCode(201)
             .body("id",is(1))
-            .body("nom",is("breaking bad"))
-            .body("dateDeSortie",is("2000-01-01"));
+            .body("nom",is("breaking bad"));
     }
 
     @Test
@@ -93,7 +92,7 @@ public class SerieApiControllerTest {
             .log().all()
             .formParam("id","1")
             .formParam("nom","a")
-            .formParam("selectFilm1","[\"1\"]")
+            .formParam("selectActeur1","[\"1\"]")
         .when()
             .post("api/serie/add")
         .then()
@@ -113,14 +112,14 @@ public class SerieApiControllerTest {
     }
 
     @Test
-    public void remove_serie_not_exists_should_404() {
+    public void remove_serie_not_exists_should_500() {
         given()
             .log().all()
             .formParam("id","1")
         .when()
             .post("api/serie/delete/1")
         .then()
-            .statusCode(404);
+            .statusCode(500);
     }
 
     @Test
@@ -177,10 +176,11 @@ public class SerieApiControllerTest {
             .log().all()
                 .formParam("nom","aw")
         .when()
-            .put("api/acteur/update/1")
+            .put("api/serie/update/1")
         .then()
             .log().all()
-            .statusCode(200);
+            .statusCode(200)
+            .body("nom",is("aw"));
     }
 
     @Test
