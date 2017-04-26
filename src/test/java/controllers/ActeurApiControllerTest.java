@@ -46,6 +46,31 @@ public class ActeurApiControllerTest {
 
     @Test
     @DirtiesContext
+    public void add_clone_acteur_should_fail() {
+        given()
+            .log().all()
+            .formParam("id","1")
+            .formParam("nom","a")
+            .formParam("prenom","a")
+        .when()
+            .post("api/acteur/add");
+
+        given()
+            .log().all()
+            .formParam("id","1")
+            .formParam("nom","a")
+            .formParam("prenom","a")
+        .when()
+            .post("api/acteur/add")
+        .then()
+            .statusCode(201)
+            .body("id",is(1))
+            .body("nom",is("a"))
+            .body("prenom",is("a"));
+    }
+
+    @Test
+    @DirtiesContext
     public void add_nouvel_acteur_avec_liste_should_succeed() {
 
         given()
