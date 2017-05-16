@@ -58,16 +58,6 @@ public class ActeurServiceTest {
         verify(participationFilmService).addParticipationsActeur(l3, acteurEntity, ImportanceEnum.IMPORTANCE_INCONNUE);
     }
 
-    @Test(expected= ActeurDejaExistant.class)
-    public void acteur_creation_doit_retourner_exception(){
-        ActeurEntity acteurEntity = ActeurEntity.builder().id(1L).nom("dabitude").prenom("jojo").build();
-        List<Long> l1 = Arrays.asList(1L);
-        List<Long> l2 = Arrays.asList(2L);
-        List<Long> l3 = Arrays.asList(3L);
-
-        acteurService.createActeur(acteurEntity, l1, l2, l3);
-        acteurService.createActeur(acteurEntity, l1, l2, l3);
-    }
 
     @Test
     public void acteur_supprime_doit_etre_appele(){
@@ -77,19 +67,6 @@ public class ActeurServiceTest {
 
         verify(participationFilmService).deleteParticipationFilmFromActeur(deletionId);
         verify(acteurRepository).delete(deletionId);
-    }
-
-    @Test
-    public void acteur_modifie_doit_etre_appele(){
-        Long updateId = any(Long.class);
-        ActeurEntity actor = any(ActeurEntity.class);
-        List<Long> l1 = Arrays.asList(1L);
-        List<Long> l2 = Arrays.asList(2L);
-        List<Long> l3 = Arrays.asList(3L);
-
-        acteurService.modifierActeur(updateId, actor, l1, l2, l3);
-
-        verify(participationFilmService).deleteParticipationFilmFromActeur(updateId);
     }
 
 
