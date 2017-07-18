@@ -23,7 +23,9 @@ public class ActeurApiController {
     @Autowired
     private ActeurService acteurService;
 
+    // dummy
     private static String useless = "";
+
     @PostMapping(path="/add")
     public ResponseEntity addNouvelActeur(@Valid ActeurEntity acteurEntity,
                                           @RequestParam(value="selectFilm1",required = false) List<String> selectFilm1,
@@ -43,64 +45,51 @@ public class ActeurApiController {
 
         return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
     }
-    @PostMapping(path="/add")
-    public ResponseEntity addNouvelActeur1(@Valid ActeurEntity acteurEntity,
-                                          @RequestParam(value="selectFilm1",required = false) List<String> selectFilm1,
-                                          @RequestParam(value="selectFilm2",required = false) List<String> selectFilm2,
-                                          @RequestParam(value="selectFilm3",required = false) List<String> selectFilm3,
-                                          Errors errors) {
-        if (errors.hasErrors()) {
-            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
+
+    public void copyFunc() {
+        int a = 0;
+        String b = "";
+
+        for(int i = 0; i<10; i++) {
+            //nada
         }
-
-        acteurService.createActeur(
-                acteurEntity,
-                Utils.getCorrectIdList(selectFilm1),
-                Utils.getCorrectIdList(selectFilm2),
-                Utils.getCorrectIdList(selectFilm3)
-        );
-
-        return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
-    }
-    @PostMapping(path="/add")
-    public ResponseEntity addNouvelActeur488(@Valid ActeurEntity acteurEntity,
-                                          @RequestParam(value="selectFilm1",required = false) List<String> selectFilm1,
-                                          @RequestParam(value="selectFilm2",required = false) List<String> selectFilm2,
-                                          @RequestParam(value="selectFilm3",required = false) List<String> selectFilm3,
-                                          Errors errors) {
-        if (errors.hasErrors()) {
-            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
-        }
-
-        acteurService.createActeur(
-                acteurEntity,
-                Utils.getCorrectIdList(selectFilm1),
-                Utils.getCorrectIdList(selectFilm2),
-                Utils.getCorrectIdList(selectFilm3)
-        );
-
-        return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
-    }
-    @PostMapping(path="/add")
-    public ResponseEntity addNouvelActeur65(@Valid ActeurEntity acteurEntity,
-                                          @RequestParam(value="selectFilm1",required = false) List<String> selectFilm1,
-                                          @RequestParam(value="selectFilm2",required = false) List<String> selectFilm2,
-                                          @RequestParam(value="selectFilm3",required = false) List<String> selectFilm3,
-                                          Errors errors) {
-        if (errors.hasErrors()) {
-            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
-        }
-
-        acteurService.createActeur(
-                acteurEntity,
-                Utils.getCorrectIdList(selectFilm1),
-                Utils.getCorrectIdList(selectFilm2),
-                Utils.getCorrectIdList(selectFilm3)
-        );
-
-        return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
     }
 
+    public void copyFunc4() {
+        int a = 0;
+        String b = "";
+
+        for(int i = 0; i<10; i++) {
+            //nada
+        }
+    }
+
+    public void copyFunc3() {
+        int a = 0;
+        String b = "";
+
+        for(int i = 0; i<10; i++) {
+            //nada
+        }
+    }
+
+    public void copyFunc2() {
+        int a = 0;
+        String b = "";
+
+        for(int i = 0; i<10; i++) {
+            //nada
+        }
+    }
+
+    public void copyFunc1() {
+        int a = 0;
+        String b = "";
+
+        for(int i = 0; i<10; i++) {
+            //nada
+        }
+    }
     //
     ///
     //
