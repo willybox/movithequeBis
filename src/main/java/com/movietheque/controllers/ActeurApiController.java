@@ -29,18 +29,7 @@ public class ActeurApiController {
                                           @RequestParam(value="selectFilm2",required = false) List<String> selectFilm2,
                                           @RequestParam(value="selectFilm3",required = false) List<String> selectFilm3,
                                           Errors errors) {
-        if (errors.hasErrors()) {
-            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
-        }
-
-        acteurService.createActeur(
-                acteurEntity,
-                Utils.getCorrectIdList(selectFilm1),
-                Utils.getCorrectIdList(selectFilm2),
-                Utils.getCorrectIdList(selectFilm3)
-        );
-
-        return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
+        return null;
     }
 
     @GetMapping(path="/")
