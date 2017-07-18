@@ -81,6 +81,21 @@ public class ActeurApiController {
         return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.OK);
     }
 
+    public void useless() {
+        int a = 0;
+        String g = "";
+    }
+
+    public void useless2() {
+        int a = 0;
+        String g = "";
+    }
+
+    public void useless3() {
+        int a = 0;
+        String g = "";
+    }
+
 
 }
 
