@@ -23,14 +23,90 @@ public class ActeurApiController {
     @Autowired
     private ActeurService acteurService;
 
+    private static String useless = "";
     @PostMapping(path="/add")
     public ResponseEntity addNouvelActeur(@Valid ActeurEntity acteurEntity,
                                           @RequestParam(value="selectFilm1",required = false) List<String> selectFilm1,
                                           @RequestParam(value="selectFilm2",required = false) List<String> selectFilm2,
                                           @RequestParam(value="selectFilm3",required = false) List<String> selectFilm3,
                                           Errors errors) {
-        return null;
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
+        }
+
+        acteurService.createActeur(
+                acteurEntity,
+                Utils.getCorrectIdList(selectFilm1),
+                Utils.getCorrectIdList(selectFilm2),
+                Utils.getCorrectIdList(selectFilm3)
+        );
+
+        return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
     }
+    @PostMapping(path="/add")
+    public ResponseEntity addNouvelActeur1(@Valid ActeurEntity acteurEntity,
+                                          @RequestParam(value="selectFilm1",required = false) List<String> selectFilm1,
+                                          @RequestParam(value="selectFilm2",required = false) List<String> selectFilm2,
+                                          @RequestParam(value="selectFilm3",required = false) List<String> selectFilm3,
+                                          Errors errors) {
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
+        }
+
+        acteurService.createActeur(
+                acteurEntity,
+                Utils.getCorrectIdList(selectFilm1),
+                Utils.getCorrectIdList(selectFilm2),
+                Utils.getCorrectIdList(selectFilm3)
+        );
+
+        return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
+    }
+    @PostMapping(path="/add")
+    public ResponseEntity addNouvelActeur488(@Valid ActeurEntity acteurEntity,
+                                          @RequestParam(value="selectFilm1",required = false) List<String> selectFilm1,
+                                          @RequestParam(value="selectFilm2",required = false) List<String> selectFilm2,
+                                          @RequestParam(value="selectFilm3",required = false) List<String> selectFilm3,
+                                          Errors errors) {
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
+        }
+
+        acteurService.createActeur(
+                acteurEntity,
+                Utils.getCorrectIdList(selectFilm1),
+                Utils.getCorrectIdList(selectFilm2),
+                Utils.getCorrectIdList(selectFilm3)
+        );
+
+        return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
+    }
+    @PostMapping(path="/add")
+    public ResponseEntity addNouvelActeur65(@Valid ActeurEntity acteurEntity,
+                                          @RequestParam(value="selectFilm1",required = false) List<String> selectFilm1,
+                                          @RequestParam(value="selectFilm2",required = false) List<String> selectFilm2,
+                                          @RequestParam(value="selectFilm3",required = false) List<String> selectFilm3,
+                                          Errors errors) {
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
+        }
+
+        acteurService.createActeur(
+                acteurEntity,
+                Utils.getCorrectIdList(selectFilm1),
+                Utils.getCorrectIdList(selectFilm2),
+                Utils.getCorrectIdList(selectFilm3)
+        );
+
+        return new ResponseEntity<ActeurEntity>(acteurEntity, HttpStatus.CREATED);
+    }
+
+    //
+    ///
+    //
+    //
+    /////
+    // ss
 
     @GetMapping(path="/")
     @ResponseStatus(HttpStatus.OK)
